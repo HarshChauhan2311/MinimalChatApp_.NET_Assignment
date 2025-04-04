@@ -3,11 +3,12 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using MinimalChatApp.ChatApp.Core.Interfaces;
-using MinimalChatApp.ChatApp.Core.Services;
-using MinimalChatApp.ChatApp.Infrastructure.Data;
-using MinimalChatApp.ChatApp.Infrastructure.Repositories;
-using MinimalChatApp.ChatApp.Shared.Middleware;
+using MinimalChatApp.Data;
+using MinimalChatApp.Interfaces;
+using MinimalChatApp.Middleware;
+using MinimalChatApp.MinimalChatApp.Repositories;
+using MinimalChatApp.Services;
+using MinimalChatApp.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,9 +37,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddScoped<JwtTokenService>();
+builder.Services.AddScoped<IErrorLogService, ErrorLogService>();
+
 // Services & Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+
 
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();

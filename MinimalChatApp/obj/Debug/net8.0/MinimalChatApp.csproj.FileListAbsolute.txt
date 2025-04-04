@@ -139,4 +139,5 @@ C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\runtimes\win\li
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\BCrypt.Net-Core.dll
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.sourcelink.json
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
