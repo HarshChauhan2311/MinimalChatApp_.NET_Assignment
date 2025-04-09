@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MinimalChatApp.DTOs;
+using MinimalChatApp.MinimalChatApp.DTOs;
 using MinimalChatApp.Models;
 
-namespace MinimalChatApp.Interfaces
+namespace MinimalChatApp.Interfaces.IRepositories
 {
     public interface IUserRepository
     {
@@ -13,7 +14,7 @@ namespace MinimalChatApp.Interfaces
         /// <returns>
         /// A <see cref="User"/> object if found; otherwise, <c>null</c>.
         /// </returns>
-        Task<User?> GetByIdAsync(int userId);
+        Task<UserDto?> GetByIdAsync(int userId);
 
         /// <summary>
         /// Retrieves a user by their email address asynchronously.
@@ -43,6 +44,7 @@ namespace MinimalChatApp.Interfaces
         /// <returns>
         /// A list of <see cref="User"/> objects excluding the specified user.
         /// </returns>
-        Task<List<User>> GetOtherUsersAsync(string currentUserEmail);
+        Task<List<UserDto>> GetOtherUsersAsync(string currentUserEmail);
+
     }
 }

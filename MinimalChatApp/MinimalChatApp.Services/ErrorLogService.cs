@@ -1,5 +1,5 @@
 ﻿using MinimalChatApp.Data;
-using MinimalChatApp.Interfaces;
+using MinimalChatApp.Interfaces.IServices;
 using MinimalChatApp.Models;
 
 namespace MinimalChatApp.Services

@@ -1,7 +1,23 @@
 [
   {
+    "ContainingType": "MinimalChatApp.Controllers.MessagesController",
+    "Method": "SearchConversationsAsync",
+    "RelativePath": "api/conversation/search",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "query",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "MinimalChatApp.Controllers.LogController",
-    "Method": "GetLogs",
+    "Method": "GetLogsAsync",
     "RelativePath": "api/log",
     "HttpMethod": "GET",
     "IsController": true,
@@ -22,7 +38,7 @@
   },
   {
     "ContainingType": "MinimalChatApp.Controllers.AuthController",
-    "Method": "Login",
+    "Method": "LoginAsync",
     "RelativePath": "api/login",
     "HttpMethod": "POST",
     "IsController": true,
@@ -38,7 +54,7 @@
   },
   {
     "ContainingType": "MinimalChatApp.Controllers.MessagesController",
-    "Method": "SendMessage",
+    "Method": "SendMessageAsync",
     "RelativePath": "api/messages",
     "HttpMethod": "POST",
     "IsController": true,
@@ -54,7 +70,7 @@
   },
   {
     "ContainingType": "MinimalChatApp.Controllers.MessagesController",
-    "Method": "GetConversationHistory",
+    "Method": "GetConversationHistoryAsync",
     "RelativePath": "api/messages",
     "HttpMethod": "GET",
     "IsController": true,
@@ -85,7 +101,7 @@
   },
   {
     "ContainingType": "MinimalChatApp.Controllers.MessagesController",
-    "Method": "EditMessage",
+    "Method": "EditMessageAsync",
     "RelativePath": "api/messages/{messageId}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -106,7 +122,7 @@
   },
   {
     "ContainingType": "MinimalChatApp.Controllers.MessagesController",
-    "Method": "DeleteMessage",
+    "Method": "DeleteMessageAsync",
     "RelativePath": "api/messages/{messageId}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -134,6 +150,42 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MinimalChatApp.Controllers.MessagesController",
+    "Method": "SendRealtimeMessage",
+    "RelativePath": "api/send",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "MinimalChatApp.MinimalChatApp.DTOs.SendMessageDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MinimalChatApp.Controllers.SocialLoginController",
+    "Method": "GoogleLogin",
+    "RelativePath": "api/SocialLogin/google-login",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MinimalChatApp.Controllers.SocialLoginController",
+    "Method": "GoogleResponse",
+    "RelativePath": "api/SocialLogin/google-response",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

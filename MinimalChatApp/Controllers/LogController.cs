@@ -1,56 +1,37 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MinimalChatApp.Data;
-using MinimalChatApp.Interfaces;
+using MinimalChatApp.Interfaces.IServices;
+using MinimalChatApp.MinimalChatApp.Interfaces.IServices;
 
 namespace MinimalChatApp.Controllers
 {
     [Route("api")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     public class LogController : ControllerBase
     {
         #region Private Variables
-        private readonly AppDbContext _context;
-        private readonly IErrorLogService _errorLogService;
+        private readonly ILogService _logService;
         #endregion
 
         #region Constructors 
-        public LogController(AppDbContext context, IErrorLogService errorLogService)
+        public LogController(ILogService logService)
         {
-            _context = context;
-            _errorLogService = errorLogService;
+            _logService = logService;
         }
         #endregion
 
         #region Public methods
         [HttpGet("log")]
-        [Authorize]
-        public async Task<IActionResult> GetLogs([FromQuery] DateTime? startTime, [FromQuery] DateTime? endTime)
+        public async Task<IActionResult> GetLogsAsync([FromQuery] DateTime? startTime, [FromQuery] DateTime? endTime)
         {
-            var start = startTime ?? DateTime.UtcNow.AddMinutes(-5);
-            var end = endTime ?? DateTime.UtcNow;
-
-            try
-            {
-                if (start > end)
-                    return BadRequest(new { error = "StartTime must be earlier than EndTime" });
-
-                var logs = await _context.RequestLogs
-                    .Where(l => l.Timestamp >= start && l.Timestamp <= end)
-                    .ToListAsync();
-
-                if (!logs.Any())
-                    return NotFound(new { error = "No logs found" });
-
-                return Ok(new { Logs = logs });
-            }
-            catch (Exception ex)
-            {
-                await _errorLogService.LogAsync(ex);
-                return BadRequest(ex);
-            }
+            return await _logService.GetLogsAsync(startTime, endTime);
         }
         #endregion
     }

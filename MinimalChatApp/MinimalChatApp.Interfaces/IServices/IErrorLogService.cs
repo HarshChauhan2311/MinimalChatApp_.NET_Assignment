@@ -1,4 +1,4 @@
-﻿namespace MinimalChatApp.Interfaces
+﻿namespace MinimalChatApp.Interfaces.IServices
 {
     public interface IErrorLogService
     {

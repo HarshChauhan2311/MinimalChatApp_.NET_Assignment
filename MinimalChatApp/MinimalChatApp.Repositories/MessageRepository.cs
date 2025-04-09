@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MinimalChatApp.Data;
-using MinimalChatApp.Interfaces;
-using MinimalChatApp.Interfaces;
+using MinimalChatApp.Interfaces.IRepositories;
+using MinimalChatApp.Interfaces.IServices;
 using MinimalChatApp.Models;
 
 namespace MinimalChatApp.Repositories
@@ -34,7 +34,7 @@ namespace MinimalChatApp.Repositories
                     Timestamp = DateTime.UtcNow
                 };
 
-                _context.Messages.Add(message);
+                await _context.Messages.AddAsync(message);
                 await _context.SaveChangesAsync();
 
                 return message;
@@ -102,9 +102,20 @@ namespace MinimalChatApp.Repositories
             catch (Exception ex)
             {
                 await _errorLogService.LogAsync(ex);
-                return null; // Let the controller handle the 500 response
+                return new List<Message>(); // Let the controller handle the 500 response
             }
         }
+
+        public async Task<List<Message>> SearchMessagesAsync(int userId, string query)
+        {
+            return await _context.Messages
+                .Where(m =>
+                    (m.SenderId == userId || m.ReceiverId == userId) &&
+                    m.Content.Contains(query))
+                .OrderByDescending(m => m.Timestamp)
+                .ToListAsync();
+        }
+
         #endregion
     }
 }

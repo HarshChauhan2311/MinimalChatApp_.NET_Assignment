@@ -1,4 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using MinimalChatApp.MinimalChatApp.DTOs;
 using MinimalChatApp.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

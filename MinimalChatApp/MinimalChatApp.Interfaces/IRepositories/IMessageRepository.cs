@@ -1,6 +1,6 @@
 ﻿using MinimalChatApp.Models;
 
-namespace MinimalChatApp.Interfaces
+namespace MinimalChatApp.Interfaces.IRepositories
 {
     public interface IMessageRepository
     {
@@ -54,5 +54,8 @@ namespace MinimalChatApp.Interfaces
         /// A list of <see cref="Message"/> objects representing the conversation history.
         /// </returns>
         Task<List<Message>> GetConversationAsync(int currentUserId, int targetUserId, DateTime before, int count, string sort);
+
+        Task<List<Message>> SearchMessagesAsync(int userId, string query);
+
     }
 }
