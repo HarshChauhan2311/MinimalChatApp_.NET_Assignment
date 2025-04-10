@@ -38,7 +38,7 @@ namespace MinimalChatApp.Controllers
         [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost("send")]
-        public async Task<IActionResult> SendRealtimeMessage([FromBody] SendMessageDto dto)
+        public async Task<IActionResult> SendRealtimeMessageAsync([FromBody] SendMessageDto dto)
         {
             //await _hubContext.Clients.User(dto.ToUser).SendAsync("ReceiveMessage", User.Identity?.Name, dto.Message);
             //return Ok(new { status = "sent" });

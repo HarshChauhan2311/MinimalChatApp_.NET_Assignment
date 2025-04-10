@@ -50,7 +50,7 @@ namespace MinimalChatApp.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        public async Task<IActionResult> RegisterAsync([FromBody] RegisterRequest request)
         {
             if (!ModelState.IsValid ||
                 string.IsNullOrWhiteSpace(request.Email) ||
@@ -66,7 +66,7 @@ namespace MinimalChatApp.Controllers
         [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("users")]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsersAsync()
         {
             return await _authService.GetUsersAsync(User);
         }
