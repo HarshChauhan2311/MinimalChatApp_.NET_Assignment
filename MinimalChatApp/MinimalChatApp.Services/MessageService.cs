@@ -1,19 +1,25 @@
-﻿using MinimalChatApp.DTOs;
+﻿using Microsoft.EntityFrameworkCore;
+using MinimalChatApp.DTOs;
 using MinimalChatApp.Interfaces.IRepositories;
 using MinimalChatApp.Interfaces.IServices;
+using MinimalChatApp.MinimalChatApp.Interfaces.IRepositories;
 using MinimalChatApp.MinimalChatApp.Interfaces.IServices;
+using MinimalChatApp.Models;
+using MinimalChatApp.Repositories;
 
 namespace MinimalChatApp.MinimalChatApp.Services
 {
     public class MessageService : IMessageService
     {
         private readonly IMessageRepository _messageRepo;
+        private readonly IGroupRepository _groupRepo;
         private readonly IUserRepository _userRepo;
         private readonly IErrorLogService _errorLogger;
 
-        public MessageService(IMessageRepository messageRepo, IUserRepository userRepo, IErrorLogService errorLogger)
+        public MessageService(IMessageRepository messageRepo, IUserRepository userRepo, IErrorLogService errorLogger, IGroupRepository groupRepo)
         {
             _messageRepo = messageRepo;
+            _groupRepo = groupRepo;
             _userRepo = userRepo;
             _errorLogger = errorLogger;
         }
@@ -46,54 +52,48 @@ namespace MinimalChatApp.MinimalChatApp.Services
             }
         }
 
-        public async Task<object> EditMessageAsync(int userId, int messageId, EditMessageRequest request)
+        public async Task<(bool isSuccess, string? error, Message? message, int statusCode)> EditMessageAsync(int userId, int messageId, EditMessageRequest request)
         {
             var message = await _messageRepo.GetByIdAsync(messageId);
             if (message == null)
-                return new { error = "Message not found." };
+                return (false, "Message not found.", null, 404);
 
             if (message.SenderId != userId)
-                return new { error = "Unauthorized access." };
+                return (false, "Unauthorized access.", null, 401);
 
             try
             {
                 message.Content = request.Content;
                 await _messageRepo.UpdateAsync(message);
 
-                return new
-                {
-                    messageId = message.Id,
-                    content = message.Content,
-                    senderId = message.SenderId,
-                    receiverId = message.ReceiverId,
-                    timestamp = message.Timestamp
-                };
+                return (true, null, message, 200);
             }
             catch (Exception ex)
             {
                 await _errorLogger.LogAsync(ex);
-                return new { error = ex.Message };
+                return (false, "Internal server error: " + ex.Message, null, 400);
             }
         }
 
-        public async Task<object> DeleteMessageAsync(int userId, int messageId)
+        public async Task<(bool isSuccess, string? error, string? message, int statusCode)> DeleteMessageAsync(int userId, int messageId)
         {
             var message = await _messageRepo.GetByIdAsync(messageId);
             if (message == null)
-                return new { error = "Message not found." };
+                return (false, "Message not found.", null, 404);
 
             if (message.SenderId != userId)
-                return new { error = "Unauthorized access." };
+                return (false, "Unauthorized access.", null, 401);
 
             try
             {
                 await _messageRepo.DeleteAsync(message);
-                return new { message = "Message deleted successfully." };
+                return (true, null, "Message deleted successfully.", 200);
+
             }
             catch (Exception ex)
             {
                 await _errorLogger.LogAsync(ex);
-                return new { error = ex.Message };
+                return (false, "Internal server error: " + ex.Message, null, 400);
             }
         }
 
@@ -149,5 +149,76 @@ namespace MinimalChatApp.MinimalChatApp.Services
                 return new { error = ex.Message };
             }
         }
+
+        public async Task<(bool isSuccess, string? error, Message? message)> SendGroupMessageAsync(int senderId, int groupId, string content)
+        {
+            if (string.IsNullOrWhiteSpace(content))
+                return (false, "Message content cannot be empty.", null);
+
+            try
+            {
+                var message = await _messageRepo.SendGroupMessageAsync(senderId, groupId, content);
+
+            return message != null
+                ? (true, null, message)
+                : (false, "Failed to send message.", null);
+            }
+            catch (Exception ex)
+            {
+                await _errorLogger.LogAsync(ex);
+                return (false, $"Internal server error: {ex.Message}", null);
+            }
+        }
+
+        public async Task<(bool isSuccess, string? error, List<Message>? messages, int statusCode)> GetGroupMessagesAsync(int userId, int groupId, DateTime before, int count, string sort)
+        {
+            if (!await _groupRepo.GroupExistsAsync(groupId))
+                return (false, "Group not found.", null, 404);
+
+            if (!await _groupRepo.IsUserGroupMemberAsync(userId, groupId))
+                return (false, "Unauthorized access.", null, 401);
+
+            try
+            {
+                var messages = await _messageRepo.GetGroupMessagesAsync(groupId, before, count, sort);
+                if (messages == null || !messages.Any())
+                    return (false, "No messages found.", null, 404);
+
+                return (true, null, messages, 200);
+            }
+            catch (Exception ex)
+            {
+                await _errorLogger.LogAsync(ex);
+                return (false, $"Internal server error: {ex.Message}", null, 500);
+            }
+        }
+
+        public async Task<(bool isSuccess, string? error, List<Message>? messages, int statusCode)> SearchGroupMessagesAsync(int userId, int groupId, string keyword)
+        {
+            if (string.IsNullOrWhiteSpace(keyword))
+                return (false, "Search keyword cannot be empty.", null, 400);
+
+            var groupExists = await _groupRepo.GroupExistsAsync(groupId);
+            if (!groupExists)
+                return (false, "Group not found.", null, 404);
+
+            var isMember = await _groupRepo.IsUserGroupMemberAsync(userId, groupId);
+            if (!isMember)
+                return (false, "Unauthorized access.", null, 401);
+
+            try
+            {
+                var messages = await _messageRepo.SearchGroupMessagesAsync(groupId, userId, keyword);
+                return (true, null, messages, 200);
+            }
+            catch (Exception ex)
+            {
+                await _errorLogger.LogAsync(ex);
+                return (false, $"Internal server error: {ex.Message}", null, 500);
+            }
+        }
+
+
+
     }
 }

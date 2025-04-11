@@ -14,7 +14,7 @@ using MinimalChatApp.MinimalChatApp.Interfaces.IServices;
 
 namespace MinimalChatApp.Controllers
 {
-   
+
     [Route("api")]
     [ApiController]
     public class MessagesController : ControllerBase
@@ -84,19 +84,25 @@ namespace MinimalChatApp.Controllers
             if (string.IsNullOrWhiteSpace(request.Content))
                 return BadRequest(new { error = "Message content cannot be empty." });
 
-            var userIdClaim = User.FindFirst("userId");
-            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+            var userIdClaim = User.FindFirst("userId")?.Value;
+            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
                 return Unauthorized(new { error = "Unauthorized access." });
 
-            var result = await _messageService.EditMessageAsync(userId, messageId, request);
-            if (result != null && result.GetType().GetProperty("error") != null)
-            {
-                var errorValue = result.GetType().GetProperty("error")?.GetValue(result);
-                if (errorValue != null)
-                    return BadRequest(result);
-            }
+            var (isSuccess, error, message, statusCode) = await _messageService.EditMessageAsync(userId, messageId, request);
 
-            return Ok(result);
+            if (!isSuccess)
+                return StatusCode(statusCode, new { error });
+
+            return Ok(new
+            {
+                message = "Message Edited successfully.",
+                messageId = message!.Id,
+                content = message.Content,
+                senderId = message.SenderId,
+                receiverId = message.ReceiverId,
+                groupId = message.GroupId,
+                timestamp = message.Timestamp
+            });
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -107,15 +113,12 @@ namespace MinimalChatApp.Controllers
             if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
                 return Unauthorized(new { error = "Unauthorized access." });
 
-            var result = await _messageService.DeleteMessageAsync(userId, messageId);
-            if (result != null && result.GetType().GetProperty("error") != null)
-            {
-                var errorValue = result.GetType().GetProperty("error")?.GetValue(result);
-                if (errorValue != null)
-                    return BadRequest(result);
-            }
+            var (isSuccess, error, message, statusCode) = await _messageService.DeleteMessageAsync(userId, messageId);
 
-            return Ok(result);
+            if (!isSuccess)
+                return StatusCode(statusCode, new { error });
+
+            return Ok(new { message });
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -144,19 +147,122 @@ namespace MinimalChatApp.Controllers
             return Ok(result);
         }
 
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //[HttpGet("conversation/search")]
+        //public async Task<IActionResult> SearchConversationsAsync([FromQuery] string query)
+        //{
+        //    if (string.IsNullOrWhiteSpace(query))
+        //        return BadRequest(new { error = "Query parameter is required." });
+
+        //    var userId = int.Parse(User.FindFirst("userId")?.Value ?? "0");
+        //    var result = await _messageService.SearchConversationsAsync(userId, query);
+
+        //    return Ok(result);
+        //}
+
+        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpGet("conversation/search")]
-        public async Task<IActionResult> SearchConversationsAsync([FromQuery] string query)
+        [HttpPost("groupmessages")]
+        public async Task<IActionResult> SendGroupMessage([FromBody] SendGroupMessageRequest request)
         {
-            if (string.IsNullOrWhiteSpace(query))
-                return BadRequest(new { error = "Query parameter is required." });
+            if (!ModelState.IsValid || request.GroupId <= 0 || string.IsNullOrWhiteSpace(request.Content))
+                return BadRequest(new { error = "Invalid request data." });
 
-            var userId = int.Parse(User.FindFirst("userId")?.Value ?? "0");
-            var result = await _messageService.SearchConversationsAsync(userId, query);
+            var userIdClaim = User.FindFirst("userId")?.Value;
+            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int senderId))
+                return Unauthorized(new { error = "Unauthorized access." });
 
-            return Ok(result);
+            var (isSuccess, error, message) = await _messageService.SendGroupMessageAsync(senderId, request.GroupId, request.Content);
+
+            if (!isSuccess)
+                return BadRequest(new { error });
+
+            return Ok(new
+            {
+                messageId = message!.Id,
+                groupId = message.GroupId,
+                senderId = message.SenderId,
+                content = message.Content,
+                timestamp = message.Timestamp
+            });
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet("groupmessages")]
+        public async Task<IActionResult> GetGroupConversationHistory(
+            [FromQuery] int groupId,
+            [FromQuery] DateTime? before,
+            [FromQuery] int count = 20,
+            [FromQuery] string sort = "asc")
+        {
+            // Get userId from JWT token
+            var userIdClaim = User.FindFirst("userId")?.Value;
+            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
+                return Unauthorized(new { error = "Unauthorized access." });
+
+            // Validate inputs
+            if (groupId <= 0 || (sort.ToLower() != "asc" && sort.ToLower() != "desc"))
+                return BadRequest(new { error = "Invalid request parameters." });
+
+            var beforeDate = before ?? DateTime.UtcNow;
+
+            // Call service
+            var (isSuccess, error, messages, statusCode) = await _messageService.GetGroupMessagesAsync(
+                userId, groupId, beforeDate, count, sort);
+
+            if (!isSuccess)
+                return StatusCode(statusCode, new { error });
+
+            return Ok(new
+            {
+                messages = messages!.Select(m => new
+                {
+                    id = m.Id,
+                    senderId = m.SenderId,
+                    content = m.Content,
+                    timestamp = m.Timestamp
+                })
+            });
+        }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet("conversation/search")]
+        public async Task<IActionResult> SearchGroupConversations(
+        [FromQuery] int groupId,
+        [FromQuery] string message)
+        {
+            var userIdClaim = User.FindFirst("userId")?.Value;
+            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
+                return Unauthorized(new { error = "Unauthorized access." });
+
+            if (groupId <= 0 || string.IsNullOrWhiteSpace(message))
+                return BadRequest(new { error = "Invalid request parameters." });
+
+            var (isSuccess, error, messages, statusCode) = await _messageService.SearchGroupMessagesAsync(userId, groupId, message);
+
+            if (!isSuccess)
+                return StatusCode(statusCode, new { error });
+
+            return Ok(new
+            {
+                messages = messages!.Select(m => new
+                {
+                    id = m.GroupId,
+                    messageId = m.Id,
+                    senderId = m.SenderId,
+                    receiverId = m.ReceiverId,
+                    content = m.Content,
+                    timestamp = m.Timestamp
+                })
+            });
+        }
+
+
+
         #endregion
+
     }
+
+
+
 }

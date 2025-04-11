@@ -144,10 +144,10 @@ C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\staticwebassets
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.MinimalChatApp.props
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.MinimalChatApp.props
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalC.44FD723C.Up2Date
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.dll
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\refint\MinimalChatApp.dll
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.pdb
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.genruntimeconfig.cache
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\ref\MinimalChatApp.dll
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

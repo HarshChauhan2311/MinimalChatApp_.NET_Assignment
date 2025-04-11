@@ -100,6 +100,7 @@ builder.Services.AddScoped<IMessageService, MessageService>();
 builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<IErrorLogService, ErrorLogService>();
 builder.Services.AddScoped<IGoogleAuthService, GoogleAuthService>();
+builder.Services.AddScoped<IGroupService, GroupService>();
 builder.Services.AddSingleton<IUserConnectionManager, UserConnectionManager>();
 
 
@@ -107,6 +108,8 @@ builder.Services.AddSingleton<IUserConnectionManager, UserConnectionManager>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<ILogRepository, LogRepository>();
+builder.Services.AddScoped<IGroupRepository, GroupRepository>();
+
 
 // Providers
 builder.Services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();

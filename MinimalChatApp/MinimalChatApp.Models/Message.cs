@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace MinimalChatApp.Models
 {
@@ -12,8 +13,9 @@ namespace MinimalChatApp.Models
         [Required]
         public int SenderId { get; set; }
 
-        [Required]
-        public int ReceiverId { get; set; }
+        public int? ReceiverId { get; set; } 
+
+        public int? GroupId { get; set; } // for group messages
 
         [Required]
         public string Content { get; set; } = string.Empty;
@@ -24,6 +26,9 @@ namespace MinimalChatApp.Models
         public User Sender { get; set; } = null!;
 
         [ForeignKey("ReceiverId")]
-        public User Receiver { get; set; } = null!;
+        public User? Receiver { get; set; }
+
+        [ForeignKey(nameof(GroupId))]
+        public Group? Group { get; set; }
     }
 }

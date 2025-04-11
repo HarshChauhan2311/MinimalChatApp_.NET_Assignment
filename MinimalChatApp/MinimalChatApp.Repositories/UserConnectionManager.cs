@@ -1,4 +1,7 @@
-﻿using MinimalChatApp.Interfaces.IRepositories;
+﻿using Microsoft.EntityFrameworkCore;
+using MinimalChatApp.Data;
+using MinimalChatApp.Interfaces.IRepositories;
+using MinimalChatApp.Interfaces.IServices;
 
 namespace MinimalChatApp.Repositories
 {

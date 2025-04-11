@@ -21,5 +21,7 @@ namespace MinimalChatApp.Models
 
         public ICollection<Message> SentMessages { get; set; } = new List<Message>();
         public ICollection<Message> ReceivedMessages { get; set; } = new List<Message>();
+        public ICollection<Group> CreatedGroups { get; set; } = new List<Group>();
+        public ICollection<GroupMember> GroupMemberships { get; set; } = new List<GroupMember>();
     }
 }

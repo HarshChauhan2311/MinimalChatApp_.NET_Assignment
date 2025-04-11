@@ -91,13 +91,21 @@ namespace MinimalChatApp.MinimalChatApp.Services
 
         public async Task<IActionResult> GetUsersAsync(ClaimsPrincipal user)
         {
-            var currentUserEmail = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            if (string.IsNullOrEmpty(currentUserEmail))
-                return new UnauthorizedObjectResult(new { error = "Unauthorized access" });
+            try
+            {
+                var currentUserEmail = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrEmpty(currentUserEmail))
+                    return new UnauthorizedObjectResult(new { error = "Unauthorized access" });
 
-            var users = await _userRepo.GetOtherUsersAsync(currentUserEmail);
-            var result = users.Select(u => new { id = u.Id, name = u.Name, email = u.Email });
-            return new OkObjectResult(new { users = result });
+                var users = await _userRepo.GetOtherUsersAsync(currentUserEmail);
+                var result = users.Select(u => new { id = u.Id, name = u.Name, email = u.Email });
+                return new OkObjectResult(new { users = result });
+            }
+            catch (Exception ex)
+            {
+                await _errorLogService.LogAsync(ex);
+                return new BadRequestObjectResult(ex);
+            }
         }
 
     }
