@@ -136,10 +136,10 @@ C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\MinimalChatApp.
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\MinimalChatApp.DAL.dll
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\MinimalChatApp.DTO.dll
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\MinimalChatApp.Entity.dll
-C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\MinimalChatApp.Entity.pdb
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\MinimalChatApp.BAL.pdb
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\MinimalChatApp.DAL.pdb
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\MinimalChatApp.DTO.pdb
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\MinimalChatApp.Entity.pdb
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.csproj.AssemblyReference.cache
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.GeneratedMSBuildEditorConfig.editorconfig
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.AssemblyInfoInputs.cache
