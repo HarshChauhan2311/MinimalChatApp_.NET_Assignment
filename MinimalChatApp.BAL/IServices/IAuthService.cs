@@ -35,4 +35,3 @@ namespace MinimalChatApp.BAL.IServices
 
 }
 
-}

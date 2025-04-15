@@ -130,69 +130,6 @@ namespace MinimalChatApp.Controllers
 
             return Ok(result);
         }
-
-        [HttpPost("groupmessages")]
-        public async Task<IActionResult> SendGroupMessage([FromBody] SendGroupMessageRequestDTO request)
-        {
-            if (!ModelState.IsValid || request.GroupId <= 0 || string.IsNullOrWhiteSpace(request.Content))
-                return BadRequest(new { error = "Invalid request data." });
-
-            var userIdClaim = User.FindFirst("userId")?.Value;
-            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int senderId))
-                return Unauthorized(new { error = "Unauthorized access." });
-
-            var (isSuccess, error, message) = await _messageService.SendGroupMessageAsync(senderId, request.GroupId, request.Content);
-
-            if (!isSuccess)
-                return BadRequest(new { error });
-
-            return Ok(new
-            {
-                messageId = message!.Id,
-                groupId = message.GroupId,
-                senderId = message.SenderId,
-                content = message.Content,
-                timestamp = message.Timestamp
-            });
-        }
-
-        [HttpGet("groupmessages")]
-        public async Task<IActionResult> GetGroupConversationHistory(
-            [FromQuery] int groupId,
-            [FromQuery] DateTime? before,
-            [FromQuery] int count = 20,
-            [FromQuery] string sort = "asc")
-        {
-            // Get userId from JWT token
-            var userIdClaim = User.FindFirst("userId")?.Value;
-            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
-                return Unauthorized(new { error = "Unauthorized access." });
-
-            // Validate inputs
-            if (groupId <= 0 || (sort.ToLower() != "asc" && sort.ToLower() != "desc"))
-                return BadRequest(new { error = "Invalid request parameters." });
-
-            var beforeDate = before ?? DateTime.UtcNow;
-
-            // Call service
-            var (isSuccess, error, messages, statusCode) = await _messageService.GetGroupMessagesAsync(
-                userId, groupId, beforeDate, count, sort);
-
-            if (!isSuccess)
-                return StatusCode(statusCode, new { error });
-
-            return Ok(new
-            {
-                messages = messages!.Select(m => new
-                {
-                    id = m.Id,
-                    senderId = m.SenderId,
-                    content = m.Content,
-                    timestamp = m.Timestamp
-                })
-            });
-        }
-
         #endregion
 
     }

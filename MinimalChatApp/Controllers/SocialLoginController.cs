@@ -8,13 +8,19 @@ namespace MinimalChatApp.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class SocialLoginController : ControllerBase
-    {
+    { 
+        #region Private Variables
         private readonly IGoogleAuthService _googleAuthService;
+        #endregion
+
+        #region Constructors 
         public SocialLoginController(IGoogleAuthService googleAuthService)
         {
             _googleAuthService = googleAuthService;
         }
+        #endregion
 
+        #region Public methods
         [HttpGet("google-login")]
         public IActionResult GoogleLogin()
         {
@@ -34,5 +40,6 @@ namespace MinimalChatApp.Controllers
 
             return Redirect($"http://localhost:4200/chat?{queryString}");
         }
+        #endregion
     }
 }

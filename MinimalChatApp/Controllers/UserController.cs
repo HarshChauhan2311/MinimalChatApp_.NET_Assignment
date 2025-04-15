@@ -20,7 +20,6 @@ namespace MinimalChatApp.API.Controllers
         }
         #endregion
 
-
         #region Public methods
         [HttpGet]
         public async Task<IActionResult> GetUsersAsync()
