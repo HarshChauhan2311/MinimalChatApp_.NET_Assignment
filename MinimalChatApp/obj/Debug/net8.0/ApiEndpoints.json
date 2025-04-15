@@ -1,6 +1,64 @@
 [
   {
     "ContainingType": "MinimalChatApp.Controllers.GroupController",
+    "Method": "GetAllGroupsAsync",
+    "RelativePath": "api",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MinimalChatApp.Controllers.GroupController",
+    "Method": "CreateGroupAsync",
+    "RelativePath": "api",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "MinimalChatApp.DTO.CreateGroupRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MinimalChatApp.Controllers.GroupController",
+    "Method": "UpdateGroupNameAsync",
+    "RelativePath": "api",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "MinimalChatApp.DTO.UpdateGroupRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MinimalChatApp.Controllers.GroupController",
+    "Method": "DeleteGroupAsync",
+    "RelativePath": "api",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "MinimalChatApp.DTO.DeleteGroupRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MinimalChatApp.API.Controllers.MemberController",
     "Method": "UpdateMemberAccessAsync",
     "RelativePath": "api/access",
     "HttpMethod": "PUT",
@@ -37,61 +95,50 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "MinimalChatApp.Controllers.GroupController",
-    "Method": "CreateGroupAsync",
-    "RelativePath": "api/group",
+    "ContainingType": "MinimalChatApp.API.Controllers.GroupMessagesController",
+    "Method": "SendGroupMessage",
+    "RelativePath": "api/GroupMessages",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "request",
-        "Type": "MinimalChatApp.DTO.CreateGroupRequestDTO",
+        "Type": "MinimalChatApp.DTO.SendGroupMessageRequestDTO",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "MinimalChatApp.Controllers.GroupController",
-    "Method": "UpdateGroupNameAsync",
-    "RelativePath": "api/group",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "MinimalChatApp.DTO.UpdateGroupRequestDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MinimalChatApp.Controllers.GroupController",
-    "Method": "DeleteGroupAsync",
-    "RelativePath": "api/group",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "MinimalChatApp.DTO.DeleteGroupRequestDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MinimalChatApp.Controllers.GroupController",
-    "Method": "GetAllGroupsAsync",
-    "RelativePath": "api/groups",
+    "ContainingType": "MinimalChatApp.API.Controllers.GroupMessagesController",
+    "Method": "GetGroupConversationHistory",
+    "RelativePath": "api/GroupMessages",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "groupId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "before",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "count",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sort",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -132,7 +179,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "MinimalChatApp.Controllers.GroupController",
+    "ContainingType": "MinimalChatApp.API.Controllers.MemberController",
     "Method": "AddMemberAsync",
     "RelativePath": "api/member",
     "HttpMethod": "POST",
@@ -148,7 +195,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "MinimalChatApp.Controllers.GroupController",
+    "ContainingType": "MinimalChatApp.API.Controllers.MemberController",
     "Method": "RemoveMemberAsync",
     "RelativePath": "api/member",
     "HttpMethod": "DELETE",
@@ -243,53 +290,6 @@
         "Name": "messageId",
         "Type": "System.Int32",
         "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MinimalChatApp.Controllers.MessagesController",
-    "Method": "SendGroupMessage",
-    "RelativePath": "api/Messages/groupmessages",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "MinimalChatApp.DTO.SendGroupMessageRequestDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MinimalChatApp.Controllers.MessagesController",
-    "Method": "GetGroupConversationHistory",
-    "RelativePath": "api/Messages/groupmessages",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "groupId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "before",
-        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "count",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "sort",
-        "Type": "System.String",
-        "IsRequired": false
       }
     ],
     "ReturnTypes": []

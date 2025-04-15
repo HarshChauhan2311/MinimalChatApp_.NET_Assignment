@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MinimalChatApp.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+43a384f6a1e3158ee39f6ff85a11bde3631bc19d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2b8eee26b57f289f46d5433d1f28e0f4f319b830")]
 [assembly: System.Reflection.AssemblyProductAttribute("MinimalChatApp.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MinimalChatApp.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
