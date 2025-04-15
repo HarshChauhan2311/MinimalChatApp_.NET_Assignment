@@ -39,10 +39,6 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// ASP.NET Core Identity
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-     .AddEntityFrameworkStores<AppDbContext>()
-     .AddDefaultTokenProviders();
 
 // JWT Settings
 var jwtSettings = builder.Configuration.GetSection("Jwt");
