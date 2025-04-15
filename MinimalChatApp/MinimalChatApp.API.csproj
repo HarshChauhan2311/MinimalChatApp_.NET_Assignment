@@ -22,10 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Global.Entity\MinimalChatApp.Entity.csproj" />
     <ProjectReference Include="..\MinimalChatApp.BAL\MinimalChatApp.BAL.csproj" />
     <ProjectReference Include="..\MinimalChatApp.DAL\MinimalChatApp.DAL.csproj" />
     <ProjectReference Include="..\MinimalChatApp.DTO\MinimalChatApp.DTO.csproj" />
+    <ProjectReference Include="..\MinimalChatApp.Entity\MinimalChatApp.Entity.csproj" />
   </ItemGroup>
 
 </Project>

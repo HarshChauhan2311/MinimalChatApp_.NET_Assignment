@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Global.Entity\MinimalChatApp.Entity.csproj" />
     <ProjectReference Include="..\MinimalChatApp.DTO\MinimalChatApp.DTO.csproj" />
+    <ProjectReference Include="..\MinimalChatApp.Entity\MinimalChatApp.Entity.csproj" />
   </ItemGroup>
 
   <ItemGroup>

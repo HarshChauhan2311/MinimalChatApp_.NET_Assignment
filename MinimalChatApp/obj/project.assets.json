@@ -6035,8 +6035,8 @@
     },
     "MinimalChatApp.Entity/1.0.0": {
       "type": "project",
-      "path": "../Global.Entity/MinimalChatApp.Entity.csproj",
-      "msbuildProject": "../Global.Entity/MinimalChatApp.Entity.csproj"
+      "path": "../MinimalChatApp.Entity/MinimalChatApp.Entity.csproj",
+      "msbuildProject": "../MinimalChatApp.Entity/MinimalChatApp.Entity.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -6088,9 +6088,6 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Harsh_Chauhan\\.NET_Assignment\\Global.Entity\\MinimalChatApp.Entity.csproj": {
-              "projectPath": "C:\\Harsh_Chauhan\\.NET_Assignment\\Global.Entity\\MinimalChatApp.Entity.csproj"
-            },
             "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp.BAL\\MinimalChatApp.BAL.csproj": {
               "projectPath": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp.BAL\\MinimalChatApp.BAL.csproj"
             },
@@ -6099,6 +6096,9 @@
             },
             "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp.DTO\\MinimalChatApp.DTO.csproj": {
               "projectPath": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp.DTO\\MinimalChatApp.DTO.csproj"
+            },
+            "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp.Entity\\MinimalChatApp.Entity.csproj": {
+              "projectPath": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp.Entity\\MinimalChatApp.Entity.csproj"
             }
           }
         }

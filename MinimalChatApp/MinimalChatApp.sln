@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalChatApp.DAL", "..\Mi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalChatApp.BAL", "..\MinimalChatApp.BAL\MinimalChatApp.BAL.csproj", "{22A93855-D5BE-4DCE-A8C4-F4504AE9D2E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalChatApp.Entity", "..\Global.Entity\MinimalChatApp.Entity.csproj", "{0B5B15EA-76D3-4081-B758-29D733212222}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalChatApp.Entity", "..\MinimalChatApp.Entity\MinimalChatApp.Entity.csproj", "{0B5B15EA-76D3-4081-B758-29D733212222}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalChatApp.DTO", "..\MinimalChatApp.DTO\MinimalChatApp.DTO.csproj", "{89656BA2-92B7-4E35-98C1-857E9ED4F356}"
 EndProject
