@@ -16,6 +16,9 @@ using MinimalChatApp.DAL.IRepositories;
 using MinimalChatApp.DAL.Repositories;
 using Microsoft.AspNetCore.Identity;
 using MinimalChatApp.Entity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +40,13 @@ builder.Services.AddControllers();
 
 // DB Context
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+        b => b.MigrationsAssembly("MinimalChatApp.DAL")));
+
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
 
 // JWT Settings
@@ -92,7 +101,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization();
 
 // AutoMapper & Utilities
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 // Services
 builder.Services.AddScoped<JwtTokenService>();

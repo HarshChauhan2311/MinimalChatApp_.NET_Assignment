@@ -1,6 +1,7 @@
 C:\Harsh_Chauhan\.NET_Assignment\Global.Entity\bin\Debug\net8.0\MinimalChatApp.Entity.deps.json
 C:\Harsh_Chauhan\.NET_Assignment\Global.Entity\bin\Debug\net8.0\MinimalChatApp.Entity.dll
 C:\Harsh_Chauhan\.NET_Assignment\Global.Entity\bin\Debug\net8.0\MinimalChatApp.Entity.pdb
+C:\Harsh_Chauhan\.NET_Assignment\Global.Entity\obj\Debug\net8.0\MinimalChatApp.Entity.csproj.AssemblyReference.cache
 C:\Harsh_Chauhan\.NET_Assignment\Global.Entity\obj\Debug\net8.0\MinimalChatApp.Entity.GeneratedMSBuildEditorConfig.editorconfig
 C:\Harsh_Chauhan\.NET_Assignment\Global.Entity\obj\Debug\net8.0\MinimalChatApp.Entity.AssemblyInfoInputs.cache
 C:\Harsh_Chauhan\.NET_Assignment\Global.Entity\obj\Debug\net8.0\MinimalChatApp.Entity.AssemblyInfo.cs
@@ -10,4 +11,3 @@ C:\Harsh_Chauhan\.NET_Assignment\Global.Entity\obj\Debug\net8.0\MinimalChatApp.E
 C:\Harsh_Chauhan\.NET_Assignment\Global.Entity\obj\Debug\net8.0\refint\MinimalChatApp.Entity.dll
 C:\Harsh_Chauhan\.NET_Assignment\Global.Entity\obj\Debug\net8.0\MinimalChatApp.Entity.pdb
 C:\Harsh_Chauhan\.NET_Assignment\Global.Entity\obj\Debug\net8.0\ref\MinimalChatApp.Entity.dll
-C:\Harsh_Chauhan\.NET_Assignment\Global.Entity\obj\Debug\net8.0\MinimalChatApp.Entity.csproj.AssemblyReference.cache

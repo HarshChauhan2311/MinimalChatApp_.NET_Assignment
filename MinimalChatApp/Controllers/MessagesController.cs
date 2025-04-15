@@ -88,16 +88,7 @@ namespace MinimalChatApp.Controllers
             if (!isSuccess)
                 return StatusCode(statusCode, new { error });
 
-            return Ok(new
-            {
-                message = "Message Edited successfully.",
-                messageId = message!.Id,
-                content = message.Content,
-                senderId = message.SenderId,
-                receiverId = message.ReceiverId,
-                groupId = message.GroupId,
-                timestamp = message.Timestamp
-            });
+            return Ok(new { message });
         }
 
         [HttpDelete("{messageId}")]
@@ -115,12 +106,12 @@ namespace MinimalChatApp.Controllers
             return Ok(new { message });
         }
 
-        [HttpGet("messages")]
+        [HttpGet]
         public async Task<IActionResult> GetConversationHistoryAsync(
-            [FromQuery] int userId,
-            [FromQuery] DateTime? before,
-            [FromQuery] int count = 20,
-            [FromQuery] string sort = "asc")
+           [FromQuery] int userId,
+           [FromQuery] DateTime? before,
+           [FromQuery] int count = 20,
+           [FromQuery] string sort = "asc")
         {
             var userIdClaim = User.FindFirst("userId");
             if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int currentUserId))
@@ -139,7 +130,6 @@ namespace MinimalChatApp.Controllers
 
             return Ok(result);
         }
-
 
         [HttpPost("groupmessages")]
         public async Task<IActionResult> SendGroupMessage([FromBody] SendGroupMessageRequestDTO request)
@@ -202,8 +192,6 @@ namespace MinimalChatApp.Controllers
                 })
             });
         }
-
-        
 
         #endregion
 

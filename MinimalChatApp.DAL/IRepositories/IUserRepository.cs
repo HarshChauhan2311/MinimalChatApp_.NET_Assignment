@@ -4,7 +4,7 @@ using MinimalChatApp.Entity;
 
 namespace MinimalChatApp.DAL.IRepositories
 {
-    public interface IUserRepository : IGenericRepository<User>
+    public interface IUserRepository : IGenericRepository<ApplicationUser>
     {
         /// <summary>
         /// Retrieves a user by their unique identifier asynchronously.
@@ -22,7 +22,7 @@ namespace MinimalChatApp.DAL.IRepositories
         /// <returns>
         /// A <see cref="User"/> object if found; otherwise, <c>null</c>.
         /// </returns>
-        Task<User?> GetByEmailAsync(string email);
+        Task<ApplicationUser?> GetByEmailAsync(string email);
 
         /// <summary>
         /// Registers a new user asynchronously.
@@ -34,7 +34,7 @@ namespace MinimalChatApp.DAL.IRepositories
         /// - string: Error message if any
         /// - User: Registered user object (null if failed)
         /// </returns>
-        Task<bool> AddUserAsync(User user);
+        Task<bool> AddUserAsync(ApplicationUser user);
 
         /// <summary>
         /// Retrieves a list of users excluding the currently logged-in user.

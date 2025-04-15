@@ -19,7 +19,7 @@ namespace MinimalChatApp.Entity
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         [ForeignKey("CreatedBy")]
-        public User Creator { get; set; } = null!;
+        public ApplicationUser Creator { get; set; } = null!;
 
         public ICollection<Message> Messages { get; set; } = new List<Message>();
         public ICollection<GroupMember> Members { get; set; } = new List<GroupMember>();

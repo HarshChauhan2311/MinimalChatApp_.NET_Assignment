@@ -1,14 +1,3 @@
-C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.csproj.AssemblyReference.cache
-C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.GeneratedMSBuildEditorConfig.editorconfig
-C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.AssemblyInfoInputs.cache
-C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.AssemblyInfo.cs
-C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.csproj.CoreCompileInputs.cache
-C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.MvcApplicationPartsAssemblyInfo.cs
-C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.MvcApplicationPartsAssemblyInfo.cache
-C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.sourcelink.json
-C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.dll
-C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\refint\MinimalChatApp.API.dll
-C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.pdb
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\appsettings.Development.json
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\appsettings.json
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\MinimalChatApp.API.staticwebassets.endpoints.json
@@ -24,6 +13,7 @@ C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\BCrypt.Net-Core
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\Humanizer.dll
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.Google.dll
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
@@ -150,6 +140,14 @@ C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\MinimalChatApp.
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\MinimalChatApp.BAL.pdb
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\MinimalChatApp.DAL.pdb
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\MinimalChatApp.DTO.pdb
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.csproj.AssemblyReference.cache
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.AssemblyInfoInputs.cache
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.AssemblyInfo.cs
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.csproj.CoreCompileInputs.cache
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.MvcApplicationPartsAssemblyInfo.cs
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.MvcApplicationPartsAssemblyInfo.cache
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.sourcelink.json
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\scopedcss\bundle\MinimalChatApp.API.styles.css
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\staticwebassets.build.json
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\staticwebassets.development.json
@@ -162,6 +160,8 @@ C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\staticwebassets
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalC.43BBBF5F.Up2Date
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.dll
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\refint\MinimalChatApp.API.dll
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.pdb
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.genruntimeconfig.cache
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\ref\MinimalChatApp.API.dll
-C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll

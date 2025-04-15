@@ -49,7 +49,7 @@ namespace MinimalChatApp.BAL.Services
             }
         }
 
-        public async Task<(bool isSuccess, string? error, Message? message, int statusCode)> EditMessageAsync(int userId, int messageId, EditMessageRequestDTO request)
+        public async Task<(bool isSuccess, string? error, string? message, int statusCode)> EditMessageAsync(int userId, int messageId, EditMessageRequestDTO request)
         {
             var message = await _messageRepo.GetByIdAsync(messageId);
             if (message == null)
@@ -63,7 +63,7 @@ namespace MinimalChatApp.BAL.Services
                 message.Content = request.Content;
                 await _messageRepo.UpdateAsync(message);
 
-                return (true, null, message, 200);
+                return (true, null, "Message edited successfully.", 200);
             }
             catch (Exception ex)
             {

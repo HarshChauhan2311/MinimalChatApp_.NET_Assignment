@@ -8,7 +8,7 @@ using MinimalChatApp.DAL.IRepositories;
 
 namespace MinimalChatApp.DAL.Repositories
 {
-    public class UserRepository : GenericRepository<User>, IUserRepository
+    public class UserRepository : GenericRepository<ApplicationUser>, IUserRepository
     {
         #region Private Variables
         private readonly AppDbContext _context;
@@ -19,21 +19,26 @@ namespace MinimalChatApp.DAL.Repositories
 
         #region Constructors 
 
-        public UserRepository(AppDbContext context) : base(context)
+        public UserRepository(AppDbContext context, IMapper mapper) : base(context)
         {
             _context = context;
+            _mapper = mapper;
         }
+
         #endregion
 
         #region Public methods
         public async Task<UserDto?> GetByIdAsync(int userId)
         {
+            //var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            //return user != null ? _mapper.Map<UserDto>(user) : null;
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
             return user != null ? _mapper.Map<UserDto>(user) : null;
 
+
         }
 
-        public async Task<User?> GetByEmailAsync(string email)
+        public async Task<ApplicationUser?> GetByEmailAsync(string email)
         {
 
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
@@ -41,7 +46,7 @@ namespace MinimalChatApp.DAL.Repositories
 
         }
 
-        public async Task<bool> AddUserAsync(User user)
+        public async Task<bool> AddUserAsync(ApplicationUser user)
         {
 
             await _context.Users.AddAsync(user); // Asynchronous add

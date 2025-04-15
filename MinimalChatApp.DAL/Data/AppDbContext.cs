@@ -5,12 +5,10 @@ using MinimalChatApp.Entity;
 
 namespace MinimalChatApp.DAL.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser, IdentityRole<int>, int>
     {
 
-        public AppDbContext(DbContextOptions<AppDbContext> options)
-            : base(options) { }
-        public DbSet<User> Users { get; set; }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
         public DbSet<Message> Messages { get; set; }
         public DbSet<RequestLog> RequestLogs { get; set; }
         public DbSet<ErrorLog> ErrorLogs { get; set; }
@@ -19,15 +17,9 @@ namespace MinimalChatApp.DAL.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder); // 👈 Always first for Identity
             // 💡 Explicitly map entity to table name
             modelBuilder.Entity<Group>().ToTable("Groups");
-
-            // Configure identity columns to start at 1
-            modelBuilder.Entity<User>()
-                .Property(u => u.Id)
-                .UseIdentityColumn(seed: 1, increment: 1)
-            .ValueGeneratedNever();  // This disables value generation for the Id field
-
 
             modelBuilder.Entity<Message>()
                 .Property(m => m.Id)
@@ -50,7 +42,7 @@ namespace MinimalChatApp.DAL.Data
                 .UseIdentityColumn(seed: 1, increment: 1);
 
             // Unique constraint
-            modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+            modelBuilder.Entity<ApplicationUser>().HasIndex(u => u.Email).IsUnique();
             modelBuilder.Entity<Group>().HasIndex(g => g.GroupName).IsUnique();
 
             // User → Message (Sender)
@@ -80,7 +72,8 @@ namespace MinimalChatApp.DAL.Data
                 .HasOne(g => g.Creator)
                 .WithMany(u => u.CreatedGroups)
                 .HasForeignKey(g => g.CreatedBy)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasPrincipalKey(u => u.Id);
 
             // GroupMember (User ↔ Group)
             modelBuilder.Entity<GroupMember>()
@@ -93,8 +86,6 @@ namespace MinimalChatApp.DAL.Data
                 .WithMany(g => g.Members)
                 .HasForeignKey(gm => gm.GroupId);
 
-          
-            base.OnModelCreating(modelBuilder);
         }
     }
 }

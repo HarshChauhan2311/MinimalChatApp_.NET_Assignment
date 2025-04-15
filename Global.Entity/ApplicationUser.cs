@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -9,20 +8,11 @@ using Microsoft.AspNetCore.Identity;
 
 namespace MinimalChatApp.Entity
 {
-    public class User
+    public class ApplicationUser : IdentityUser<int> 
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Auto-increment PK
-        public int Id { get; set; } // Auto-increment primary key
-
-        [Required]
         public string Name { get; set; } = string.Empty;
-
-        [Required]
-        [EmailAddress]
+        public int Id { get; set; } // Auto-increment primary key
         public string Email { get; set; } = string.Empty;
-
-        [Required]
         public string PasswordHash { get; set; } = string.Empty; // Hashed password
 
         public ICollection<Message> SentMessages { get; set; } = new List<Message>();

@@ -21,6 +21,6 @@ namespace MinimalChatApp.Entity
 
         // Navigation
         public Group Group { get; set; } = null!;
-        public User User { get; set; } = null!;
+        public ApplicationUser User { get; set; } = null!;
     }
 }

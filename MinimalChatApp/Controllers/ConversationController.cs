@@ -24,7 +24,7 @@ namespace MinimalChatApp.API.Controllers
         #region Public methods
 
         [HttpGet("Search")]
-        public async Task<IActionResult> Search(
+        public async Task<IActionResult> GetConversationHistoryAsync(
         [FromQuery] int groupId,
         [FromQuery] string message)
         {

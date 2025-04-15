@@ -22,7 +22,7 @@ namespace MinimalChatApp.BAL.Services
         #endregion
 
         #region Public Method
-        public string GenerateToken(User user)
+        public string GenerateToken(ApplicationUser user)
         {
             var key = _config["Jwt:Key"];
             if (string.IsNullOrEmpty(key) || key.Length < 16)

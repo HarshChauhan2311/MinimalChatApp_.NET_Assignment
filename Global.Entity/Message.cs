@@ -23,10 +23,10 @@ namespace MinimalChatApp.Entity
         public DateTime Timestamp { get; set; } = DateTime.UtcNow;
 
         [ForeignKey("SenderId")]
-        public User Sender { get; set; } = null!;
+        public ApplicationUser Sender { get; set; } = null!;
 
         [ForeignKey("ReceiverId")]
-        public User? Receiver { get; set; }
+        public ApplicationUser? Receiver { get; set; }
 
         [ForeignKey(nameof(GroupId))]
         public Group? Group { get; set; }

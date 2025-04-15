@@ -9,68 +9,69 @@ namespace MinimalChatApp.BAL.IServices
     public interface IGroupService
     {
         /// <summary>
-        /// Creates a new group with the specified name and creator user ID.
+        /// Creates a new group with the specified name and creator's user ID.
         /// </summary>
-        /// <param name="groupName">The name of the group.</param>
+        /// <param name="groupName">The name of the group to create.</param>
         /// <param name="userId">The ID of the user creating the group.</param>
-        /// <returns>A tuple indicating success, error message, and the created group.</returns>
+        /// <returns>A tuple indicating success, an optional error message, and the created group.</returns>
         Task<(bool isSuccess, string? error, Group? group)> CreateGroupAsync(string groupName, int userId);
 
         /// <summary>
         /// Updates the name of an existing group.
         /// </summary>
         /// <param name="groupId">The ID of the group to update.</param>
-        /// <param name="newName">The new group name.</param>
-        /// <returns>A tuple indicating success, error message, and the updated group.</returns>
+        /// <param name="newName">The new name for the group.</param>
+        /// <returns>A tuple indicating success, an optional error message, and the updated group.</returns>
         Task<(bool isSuccess, string? error, Group? group)> UpdateGroupNameAsync(int groupId, string newName);
 
         /// <summary>
-        /// Deletes a group by ID and name with user validation.
+        /// Deletes a group by ID and name, validating the user performing the action.
         /// </summary>
-        /// <param name="groupId">The ID of the group.</param>
-        /// <param name="name">The name of the group.</param>
-        /// <param name="userId">The ID of the user performing the deletion.</param>
-        /// <param name="currentUserId">The ID of the authenticated user.</param>
-        /// <returns>A tuple indicating success, error message, and the deleted group.</returns>
+        /// <param name="groupId">The ID of the group to delete.</param>
+        /// <param name="name">The name of the group to confirm deletion.</param>
+        /// <param name="userId">The ID of the group creator or authorized user.</param>
+        /// <param name="currentUserId">The ID of the currently authenticated user.</param>
+        /// <returns>A tuple indicating success, an optional error message, and the deleted group.</returns>
         Task<(bool isSuccess, string? error, Group? group)> DeleteGroupAsync(int groupId, string name, int userId, int currentUserId);
 
         /// <summary>
-        /// Adds a user as a member to a group.
+        /// Adds a user to the specified group as a member.
         /// </summary>
-        /// <param name="userId">The ID of the user to add.</param>
-        /// <param name="groupId">The ID of the group.</param>
-        /// <returns>A tuple indicating success, error message, and the added group member.</returns>
+        /// <param name="userId">The ID of the user to add to the group.</param>
+        /// <param name="groupId">The ID of the target group.</param>
+        /// <returns>A tuple indicating success, an optional error message, and the added group member.</returns>
         Task<(bool isSuccess, string? error, GroupMember? member)> AddMemberAsync(int userId, int groupId);
 
         /// <summary>
-        /// Updates access permissions for a group member.
+        /// Updates the access level and optional access duration for a group member.
         /// </summary>
-        /// <param name="groupMemberId">The ID of the group member.</param>
-        /// <param name="accessType">The type of access to assign.</param>
-        /// <param name="days">Optional number of days the access is valid.</param>
-        /// <returns>A tuple indicating success, error message, and the updated group member.</returns>
+        /// <param name="groupMemberId">The ID of the group member to update.</param>
+        /// <param name="accessType">The new access level to assign.</param>
+        /// <param name="days">Optional duration in days for the access validity.</param>
+        /// <returns>A tuple indicating success, an optional error message, and the updated group member.</returns>
         Task<(bool isSuccess, string? error, GroupMember? member)> UpdateMemberAccessAsync(int groupMemberId, GroupAccessType accessType, int? days);
 
         /// <summary>
-        /// Removes a member from a group.
+        /// Removes a member from the group.
         /// </summary>
         /// <param name="groupMemberId">The ID of the group member to remove.</param>
-        /// <returns>A tuple indicating success and error message if any.</returns>
+        /// <returns>A tuple indicating success and an optional error message.</returns>
         Task<(bool isSuccess, string? error)> RemoveMemberAsync(int groupMemberId);
 
         /// <summary>
-        /// Retrieves all groups along with their members for the specified user.
+        /// Retrieves all groups and their members for a given user.
         /// </summary>
-        /// <param name="userId">The ID of the user.</param>
-        /// <returns>A list of group DTOs.</returns>
+        /// <param name="userId">The ID of the user requesting group information.</param>
+        /// <returns>A list of group details.</returns>
         Task<List<GroupResponseDTO>> GetAllGroupsAsync(int userId);
 
         /// <summary>
-        /// Retrieves group details by group ID.
+        /// Retrieves details of a specific group by its ID.
         /// </summary>
-        /// <param name="groupId">The ID of the group.</param>
-        /// <returns>The group DTO if found; otherwise, null.</returns>
+        /// <param name="groupId">The ID of the group to retrieve.</param>
+        /// <returns>The group details if found; otherwise, null.</returns>
         Task<GroupResponseDTO?> GetGroupByIdAsync(int groupId);
     }
+
 
 }
