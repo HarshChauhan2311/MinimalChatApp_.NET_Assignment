@@ -2,11 +2,9 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
-using MinimalChatApp.Interfaces.IRepositories;
-using MinimalChatApp.Interfaces.IServices;
-using MinimalChatApp.MinimalChatApp.Interfaces.IServices;
 using System.Collections.Concurrent;
 using Microsoft.Extensions.Logging;
+using MinimalChatApp.BAL.IServices;
 
 namespace MinimalChatApp.Hubs
 {
@@ -163,7 +161,9 @@ namespace MinimalChatApp.Hubs
         {
             try
             {
-                var senderEmail = Context.User.Identity?.Name;
+                var senderEmail = Context.User.Identity?.Name
+                ?? throw new InvalidOperationException("User identity is not available.");
+
                 if (string.IsNullOrEmpty(senderEmail))
                 {
                     _logger.LogWarning("Message attempt without authentication");

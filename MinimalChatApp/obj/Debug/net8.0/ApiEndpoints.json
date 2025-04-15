@@ -9,16 +9,26 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "MinimalChatApp.MinimalChatApp.DTOs.UpdateMemberAccessRequest",
+        "Type": "MinimalChatApp.DTO.UpdateMemberAccessRequestDTO",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "MinimalChatApp.Controllers.MessagesController",
-    "Method": "SearchGroupConversations",
-    "RelativePath": "api/conversation/search",
+    "ContainingType": "MinimalChatApp.API.Controllers.ConversationController",
+    "Method": "Test",
+    "RelativePath": "api/Conversation",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MinimalChatApp.API.Controllers.ConversationController",
+    "Method": "Search",
+    "RelativePath": "api/Conversation/Search",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -46,7 +56,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "MinimalChatApp.MinimalChatApp.DTOs.CreateGroupRequest",
+        "Type": "MinimalChatApp.DTO.CreateGroupRequestDTO",
         "IsRequired": true
       }
     ],
@@ -62,7 +72,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "MinimalChatApp.MinimalChatApp.DTOs.UpdateGroupRequest",
+        "Type": "MinimalChatApp.DTO.UpdateGroupRequestDTO",
         "IsRequired": true
       }
     ],
@@ -78,62 +88,15 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "MinimalChatApp.MinimalChatApp.DTOs.DeleteGroupRequest",
+        "Type": "MinimalChatApp.DTO.DeleteGroupRequestDTO",
         "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MinimalChatApp.Controllers.MessagesController",
-    "Method": "SendGroupMessage",
-    "RelativePath": "api/groupmessages",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "MinimalChatApp.MinimalChatApp.DTOs.SendGroupMessageRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MinimalChatApp.Controllers.MessagesController",
-    "Method": "GetGroupConversationHistory",
-    "RelativePath": "api/groupmessages",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "groupId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "before",
-        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "count",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "sort",
-        "Type": "System.String",
-        "IsRequired": false
       }
     ],
     "ReturnTypes": []
   },
   {
     "ContainingType": "MinimalChatApp.Controllers.GroupController",
-    "Method": "GetAllGroups",
+    "Method": "GetAllGroupsAsync",
     "RelativePath": "api/groups",
     "HttpMethod": "GET",
     "IsController": true,
@@ -172,7 +135,7 @@
     "Parameters": [
       {
         "Name": "login",
-        "Type": "MinimalChatApp.DTOs.LoginRequest",
+        "Type": "MinimalChatApp.DTO.LoginRequestDTO",
         "IsRequired": true
       }
     ],
@@ -188,7 +151,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "MinimalChatApp.MinimalChatApp.DTOs.AddMemberRequest",
+        "Type": "MinimalChatApp.DTO.AddMemberRequestDTO",
         "IsRequired": true
       }
     ],
@@ -213,14 +176,14 @@
   {
     "ContainingType": "MinimalChatApp.Controllers.MessagesController",
     "Method": "SendMessageAsync",
-    "RelativePath": "api/messages",
+    "RelativePath": "api/Messages",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "request",
-        "Type": "MinimalChatApp.DTOs.MessageRequest",
+        "Type": "MinimalChatApp.DTO.MessageRequestDTO",
         "IsRequired": true
       }
     ],
@@ -228,8 +191,92 @@
   },
   {
     "ContainingType": "MinimalChatApp.Controllers.MessagesController",
+    "Method": "EditMessageAsync",
+    "RelativePath": "api/Messages/{messageId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "messageId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "MinimalChatApp.DTO.EditMessageRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MinimalChatApp.Controllers.MessagesController",
+    "Method": "DeleteMessageAsync",
+    "RelativePath": "api/Messages/{messageId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "messageId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MinimalChatApp.Controllers.MessagesController",
+    "Method": "SendGroupMessage",
+    "RelativePath": "api/Messages/groupmessages",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "MinimalChatApp.DTO.SendGroupMessageRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MinimalChatApp.Controllers.MessagesController",
+    "Method": "GetGroupConversationHistory",
+    "RelativePath": "api/Messages/groupmessages",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "groupId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "before",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "count",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sort",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MinimalChatApp.Controllers.MessagesController",
     "Method": "GetConversationHistoryAsync",
-    "RelativePath": "api/messages",
+    "RelativePath": "api/Messages/messages",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -259,36 +306,15 @@
   },
   {
     "ContainingType": "MinimalChatApp.Controllers.MessagesController",
-    "Method": "EditMessageAsync",
-    "RelativePath": "api/messages/{messageId}",
-    "HttpMethod": "PUT",
+    "Method": "SendRealtimeMessageAsync",
+    "RelativePath": "api/Messages/send",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "messageId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "request",
-        "Type": "MinimalChatApp.DTOs.EditMessageRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MinimalChatApp.Controllers.MessagesController",
-    "Method": "DeleteMessageAsync",
-    "RelativePath": "api/messages/{messageId}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "messageId",
-        "Type": "System.Int32",
+        "Name": "dto",
+        "Type": "MinimalChatApp.DTO.SendMessageDto",
         "IsRequired": true
       }
     ],
@@ -304,23 +330,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "MinimalChatApp.DTOs.RegisterRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MinimalChatApp.Controllers.MessagesController",
-    "Method": "SendRealtimeMessageAsync",
-    "RelativePath": "api/send",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "MinimalChatApp.MinimalChatApp.DTOs.SendMessageDto",
+        "Type": "MinimalChatApp.DTO.RegisterRequestDTO",
         "IsRequired": true
       }
     ],
@@ -347,9 +357,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "MinimalChatApp.Controllers.AuthController",
+    "ContainingType": "MinimalChatApp.API.Controllers.UserController",
     "Method": "GetUsersAsync",
-    "RelativePath": "api/users",
+    "RelativePath": "api/User",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

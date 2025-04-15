@@ -4,9 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MinimalChatApp.Data;
-using MinimalChatApp.Interfaces.IServices;
-using MinimalChatApp.MinimalChatApp.Interfaces.IServices;
+using MinimalChatApp.BAL.IServices;
 
 namespace MinimalChatApp.Controllers
 {

@@ -5,28 +5,27 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using MinimalChatApp.DTOs;
+using MinimalChatApp.BAL.IServices;
+using MinimalChatApp.DTO;
 using MinimalChatApp.Hubs;
-using MinimalChatApp.Interfaces.IRepositories;
-using MinimalChatApp.Interfaces.IServices;
-using MinimalChatApp.MinimalChatApp.DTOs;
-using MinimalChatApp.MinimalChatApp.Interfaces.IServices;
 
 namespace MinimalChatApp.Controllers
 {
 
-    [Route("api")]
+    [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     public class MessagesController : ControllerBase
     {
         #region Private Variables
         private readonly IMessageService _messageService;
         private readonly IHubContext<ChatHub> _hubContext;
-        private readonly IUserConnectionManager _connectionManager;
+        private readonly IUserConnectionManagerService _connectionManager;
         #endregion
 
         #region Constructors 
-        public MessagesController(IMessageService messageService, IHubContext<ChatHub> hubContext, IUserConnectionManager connectionManager)
+        public MessagesController(IMessageService messageService, IHubContext<ChatHub> hubContext, IUserConnectionManagerService connectionManager)
         {
             _messageService = messageService;
             _hubContext = hubContext;
@@ -35,8 +34,6 @@ namespace MinimalChatApp.Controllers
         #endregion
 
         #region Public methods
-        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost("send")]
         public async Task<IActionResult> SendRealtimeMessageAsync([FromBody] SendMessageDto dto)
         {
@@ -55,9 +52,8 @@ namespace MinimalChatApp.Controllers
             return Ok(new { status = "sent" });
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpPost("messages")]
-        public async Task<IActionResult> SendMessageAsync([FromBody] MessageRequest request)
+        [HttpPost]
+        public async Task<IActionResult> SendMessageAsync([FromBody] MessageRequestDTO request)
         {
             if (!ModelState.IsValid || string.IsNullOrWhiteSpace(request.Content))
                 return BadRequest(new { error = "Invalid message data." });
@@ -77,9 +73,8 @@ namespace MinimalChatApp.Controllers
             return Ok(result);
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpPut("messages/{messageId}")]
-        public async Task<IActionResult> EditMessageAsync(int messageId, [FromBody] EditMessageRequest request)
+        [HttpPut("{messageId}")]
+        public async Task<IActionResult> EditMessageAsync(int messageId, [FromBody] EditMessageRequestDTO request)
         {
             if (string.IsNullOrWhiteSpace(request.Content))
                 return BadRequest(new { error = "Message content cannot be empty." });
@@ -105,8 +100,7 @@ namespace MinimalChatApp.Controllers
             });
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpDelete("messages/{messageId}")]
+        [HttpDelete("{messageId}")]
         public async Task<IActionResult> DeleteMessageAsync(int messageId)
         {
             var userIdClaim = User.FindFirst("userId");
@@ -121,7 +115,6 @@ namespace MinimalChatApp.Controllers
             return Ok(new { message });
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("messages")]
         public async Task<IActionResult> GetConversationHistoryAsync(
             [FromQuery] int userId,
@@ -147,23 +140,9 @@ namespace MinimalChatApp.Controllers
             return Ok(result);
         }
 
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        //[HttpGet("conversation/search")]
-        //public async Task<IActionResult> SearchConversationsAsync([FromQuery] string query)
-        //{
-        //    if (string.IsNullOrWhiteSpace(query))
-        //        return BadRequest(new { error = "Query parameter is required." });
 
-        //    var userId = int.Parse(User.FindFirst("userId")?.Value ?? "0");
-        //    var result = await _messageService.SearchConversationsAsync(userId, query);
-
-        //    return Ok(result);
-        //}
-
-        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost("groupmessages")]
-        public async Task<IActionResult> SendGroupMessage([FromBody] SendGroupMessageRequest request)
+        public async Task<IActionResult> SendGroupMessage([FromBody] SendGroupMessageRequestDTO request)
         {
             if (!ModelState.IsValid || request.GroupId <= 0 || string.IsNullOrWhiteSpace(request.Content))
                 return BadRequest(new { error = "Invalid request data." });
@@ -187,7 +166,6 @@ namespace MinimalChatApp.Controllers
             });
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("groupmessages")]
         public async Task<IActionResult> GetGroupConversationHistory(
             [FromQuery] int groupId,
@@ -225,44 +203,10 @@ namespace MinimalChatApp.Controllers
             });
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpGet("conversation/search")]
-        public async Task<IActionResult> SearchGroupConversations(
-        [FromQuery] int groupId,
-        [FromQuery] string message)
-        {
-            var userIdClaim = User.FindFirst("userId")?.Value;
-            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
-                return Unauthorized(new { error = "Unauthorized access." });
-
-            if (groupId <= 0 || string.IsNullOrWhiteSpace(message))
-                return BadRequest(new { error = "Invalid request parameters." });
-
-            var (isSuccess, error, messages, statusCode) = await _messageService.SearchGroupMessagesAsync(userId, groupId, message);
-
-            if (!isSuccess)
-                return StatusCode(statusCode, new { error });
-
-            return Ok(new
-            {
-                messages = messages!.Select(m => new
-                {
-                    id = m.GroupId,
-                    messageId = m.Id,
-                    senderId = m.SenderId,
-                    receiverId = m.ReceiverId,
-                    content = m.Content,
-                    timestamp = m.Timestamp
-                })
-            });
-        }
-
-
+        
 
         #endregion
 
     }
-
-
 
 }

@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using MinimalChatApp.MinimalChatApp.DTOs;
-using MinimalChatApp.MinimalChatApp.Interfaces.IServices;
+using MinimalChatApp.BAL.IServices;
+using MinimalChatApp.DTO;
+
 
 namespace MinimalChatApp.Controllers
 {
@@ -23,7 +22,7 @@ namespace MinimalChatApp.Controllers
         }
 
         [HttpPost("group")]
-        public async Task<IActionResult> CreateGroupAsync([FromBody] CreateGroupRequest request)
+        public async Task<IActionResult> CreateGroupAsync([FromBody] CreateGroupRequestDTO request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new { error = "Invalid request." });
@@ -51,7 +50,7 @@ namespace MinimalChatApp.Controllers
         }
 
         [HttpPut("group")]
-        public async Task<IActionResult> UpdateGroupNameAsync([FromBody] UpdateGroupRequest request)
+        public async Task<IActionResult> UpdateGroupNameAsync([FromBody] UpdateGroupRequestDTO request)
         {
             if (!ModelState.IsValid || request.GroupId <= 0)
                 return BadRequest(new { error = "Invalid group update request." });
@@ -74,7 +73,7 @@ namespace MinimalChatApp.Controllers
         }
 
         [HttpDelete("group")]
-        public async Task<IActionResult> DeleteGroupAsync([FromBody] DeleteGroupRequest request)
+        public async Task<IActionResult> DeleteGroupAsync([FromBody] DeleteGroupRequestDTO request)
         {
             var userIdClaim = User.FindFirst("userId")?.Value;
 
@@ -104,7 +103,7 @@ namespace MinimalChatApp.Controllers
 
 
         [HttpPost("member")]
-        public async Task<IActionResult> AddMemberAsync([FromBody] AddMemberRequest request)
+        public async Task<IActionResult> AddMemberAsync([FromBody] AddMemberRequestDTO request)
         {
             if (!ModelState.IsValid || request.UserId <= 0 || request.GroupId <= 0)
                 return BadRequest(new { error = "Invalid user or group ID." });
@@ -123,7 +122,7 @@ namespace MinimalChatApp.Controllers
         }
 
         [HttpPut("access")]
-        public async Task<IActionResult> UpdateMemberAccessAsync([FromBody] UpdateMemberAccessRequest request)
+        public async Task<IActionResult> UpdateMemberAccessAsync([FromBody] UpdateMemberAccessRequestDTO request)
         {
             if (!ModelState.IsValid || request.GroupMemberId <= 0)
                 return BadRequest(new { error = "Invalid request parameters." });
@@ -158,8 +157,7 @@ namespace MinimalChatApp.Controllers
             return Ok(new { message = "Member deleted successfully." });
         }
 
-        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
         [HttpGet("groups")]
         public async Task<IActionResult> GetAllGroupsAsync()
         {

@@ -3,9 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using MinimalChatApp.Models;
-using MinimalChatApp.Data;
-using MinimalChatApp.Interfaces;
+using MinimalChatApp.DAL.Data;
+using MinimalChatApp.Entity;
 
 namespace MinimalChatApp.Middleware
 {
@@ -51,7 +50,8 @@ namespace MinimalChatApp.Middleware
                     Timestamp = DateTime.UtcNow
                 };
 
-                db.RequestLogs.Add(log);
+                // Use asynchronous database add
+                await db.RequestLogs.AddAsync(log);
                 await db.SaveChangesAsync();
 
                 await _next(context);

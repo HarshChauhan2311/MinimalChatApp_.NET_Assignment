@@ -2,19 +2,15 @@
 using Microsoft.AspNetCore.Mvc;
 using BCrypt.Net;
 using Microsoft.EntityFrameworkCore;
-using MinimalChatApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.JsonWebTokens;
 using System.Security.Claims;
-using MinimalChatApp.Services;
-using MinimalChatApp.DTOs;
-using MinimalChatApp.Interfaces.IServices;
-using MinimalChatApp.Interfaces.IRepositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication;
-using MinimalChatApp.MinimalChatApp.Interfaces.IServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MinimalChatApp.DTO;
+using MinimalChatApp.BAL.IServices;
 
 
 namespace MinimalChatApp.Controllers
@@ -37,7 +33,7 @@ namespace MinimalChatApp.Controllers
 
         #region Public methods
         [HttpPost("login")]
-        public async Task<IActionResult> LoginAsync([FromBody] LoginRequest login)
+        public async Task<IActionResult> LoginAsync([FromBody] LoginRequestDTO login)
         {
             if (!ModelState.IsValid ||
                 string.IsNullOrWhiteSpace(login.Email) ||
@@ -50,7 +46,7 @@ namespace MinimalChatApp.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterAsync([FromBody] RegisterRequest request)
+        public async Task<IActionResult> RegisterAsync([FromBody] RegisterRequestDTO request)
         {
             if (!ModelState.IsValid ||
                 string.IsNullOrWhiteSpace(request.Email) ||
@@ -62,15 +58,6 @@ namespace MinimalChatApp.Controllers
 
             return await _authService.RegisterAsync(request);
         }
-
-        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpGet("users")]
-        public async Task<IActionResult> GetUsersAsync()
-        {
-            return await _authService.GetUsersAsync(User);
-        }
-
         #endregion
 
     }

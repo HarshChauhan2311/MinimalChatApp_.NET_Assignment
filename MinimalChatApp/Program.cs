@@ -3,26 +3,23 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using MinimalChatApp.Data;
+using MinimalChatApp.DAL.Data;
 using MinimalChatApp.Middleware;
-using MinimalChatApp.MinimalChatApp.Repositories;
-using MinimalChatApp.Services;
-using MinimalChatApp.Repositories;
-using MinimalChatApp.Interfaces.IServices;
-using MinimalChatApp.Interfaces.IRepositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using MinimalChatApp.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using MinimalChatApp.Providers;
-using MinimalChatApp.MinimalChatApp.Interfaces.IServices;
-using MinimalChatApp.MinimalChatApp.Services;
-using MinimalChatApp.MinimalChatApp.Interfaces.IRepositories;
+using MinimalChatApp.BAL.IServices;
+using MinimalChatApp.BAL.Services;
+using MinimalChatApp.DAL.IRepositories;
+using MinimalChatApp.DAL.Repositories;
+using Microsoft.AspNetCore.Identity;
+using MinimalChatApp.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-// Add services to the container
+// CORS Policy
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp", policy =>
@@ -34,66 +31,74 @@ builder.Services.AddCors(options =>
     });
 });
 
+// SignalR & Controllers
 builder.Services.AddSignalR();
 builder.Services.AddControllers();
 
-// Database Context
+// DB Context
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// JWT config
-var jwtSettings = builder.Configuration.GetSection("Jwt");
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.RequireHttpsMetadata = false;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSettings["Issuer"],
-            ValidAudience = jwtSettings["Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]!)),
-            NameClaimType = ClaimTypes.NameIdentifier
-        };
-        options.Events = new JwtBearerEvents
-        {
-            OnMessageReceived = context =>
-            {
-                var accessToken = context.Request.Query["access_token"];
-                var path = context.HttpContext.Request.Path;
-                if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/chathub"))
-                {
-                    context.Token = accessToken;
-                }
-                return Task.CompletedTask;
-            }
-        };
-    });
+// ASP.NET Core Identity
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+     .AddEntityFrameworkStores<AppDbContext>()
+     .AddDefaultTokenProviders();
 
-//Google Auth with Cookies
-var googleAuth = builder.Configuration.GetSection("Google");
+// JWT Settings
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-.AddCookie()
-.AddGoogle(options =>
+.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
 {
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]!)),
+        NameClaimType = ClaimTypes.NameIdentifier
+    };
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            var accessToken = context.Request.Query["access_token"];
+            var path = context.HttpContext.Request.Path;
+            if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/chathub"))
+            {
+                context.Token = accessToken;
+            }
+            return Task.CompletedTask;
+        }
+    };
+})
+.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
+.AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
+{
+    var googleAuth = builder.Configuration.GetSection("Google");
     options.ClientId = googleAuth["ClientId"];
     options.ClientSecret = googleAuth["ClientSecret"];
-    options.CallbackPath = "/signin-google"; // Important:  Matches redirect URI!
+    options.CallbackPath = "/signin-google";
 });
+
+
 
 builder.Services.AddAuthorization();
 
-
+// AutoMapper & Utilities
+builder.Services.AddAutoMapper(typeof(Program));
 
 // Services
-builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<JwtTokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IMessageService, MessageService>();
@@ -101,25 +106,28 @@ builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<IErrorLogService, ErrorLogService>();
 builder.Services.AddScoped<IGoogleAuthService, GoogleAuthService>();
 builder.Services.AddScoped<IGroupService, GroupService>();
-builder.Services.AddSingleton<IUserConnectionManager, UserConnectionManager>();
+builder.Services.AddSingleton<IUserConnectionManagerService, UserConnectionManagerService>();
 
+// Generic Repository
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 // Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<ILogRepository, LogRepository>();
 builder.Services.AddScoped<IGroupRepository, GroupRepository>();
+builder.Services.AddScoped<IErrorLogRepository, ErrorLogRepository>();
 
-
-// Providers
+// SignalR User ID Provider
 builder.Services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
 
+// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Middleware Pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -128,13 +136,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAngularApp");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseMiddleware<RequestLoggingMiddleware>();
 
-
 app.MapControllers();
-app.MapHub<ChatHub>("/chatHub");
+app.MapHub<ChatHub>("/chathub");
 
 app.Run();

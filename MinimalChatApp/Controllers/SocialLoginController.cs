@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using MinimalChatApp.MinimalChatApp.Interfaces.IServices;
+using MinimalChatApp.BAL.IServices;
 
 namespace MinimalChatApp.Controllers
 {

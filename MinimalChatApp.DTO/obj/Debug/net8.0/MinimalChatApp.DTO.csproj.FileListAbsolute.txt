@@ -1,0 +1,16 @@
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp.DTO\bin\Debug\net8.0\MinimalChatApp.DTO.deps.json
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp.DTO\bin\Debug\net8.0\MinimalChatApp.DTO.dll
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp.DTO\bin\Debug\net8.0\MinimalChatApp.DTO.pdb
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp.DTO\bin\Debug\net8.0\MinimalChatApp.Entity.dll
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp.DTO\bin\Debug\net8.0\MinimalChatApp.Entity.pdb
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp.DTO\obj\Debug\net8.0\MinimalChatApp.DTO.csproj.AssemblyReference.cache
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp.DTO\obj\Debug\net8.0\MinimalChatApp.DTO.GeneratedMSBuildEditorConfig.editorconfig
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp.DTO\obj\Debug\net8.0\MinimalChatApp.DTO.AssemblyInfoInputs.cache
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp.DTO\obj\Debug\net8.0\MinimalChatApp.DTO.AssemblyInfo.cs
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp.DTO\obj\Debug\net8.0\MinimalChatApp.DTO.csproj.CoreCompileInputs.cache
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp.DTO\obj\Debug\net8.0\MinimalChatApp.DTO.sourcelink.json
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp.DTO\obj\Debug\net8.0\MinimalC.78F2AE6B.Up2Date
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp.DTO\obj\Debug\net8.0\MinimalChatApp.DTO.dll
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp.DTO\obj\Debug\net8.0\refint\MinimalChatApp.DTO.dll
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp.DTO\obj\Debug\net8.0\MinimalChatApp.DTO.pdb
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp.DTO\obj\Debug\net8.0\ref\MinimalChatApp.DTO.dll

@@ -595,6 +595,10 @@
   "components": {
     "schemas": {
       "AddMemberRequest": {
+        "required": [
+          "groupId",
+          "userId"
+        ],
         "type": "object",
         "properties": {
           "userId": {
@@ -609,11 +613,14 @@
         "additionalProperties": false
       },
       "CreateGroupRequest": {
+        "required": [
+          "name"
+        ],
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
