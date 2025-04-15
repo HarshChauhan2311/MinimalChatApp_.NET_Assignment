@@ -10,7 +10,7 @@ namespace MinimalChatApp.API.Controllers
 {
     [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [Route("api")]
+    [Route("api/[controller]")]
     [ApiController]
     public class MemberController : ControllerBase
     {  
@@ -27,7 +27,7 @@ namespace MinimalChatApp.API.Controllers
 
         #region Public methods
 
-        [HttpPost("member")]
+        [HttpPost]
         public async Task<IActionResult> AddMemberAsync([FromBody] AddMemberRequestDTO request)
         {
             if (!ModelState.IsValid || request.UserId <= 0 || request.GroupId <= 0)
@@ -46,7 +46,7 @@ namespace MinimalChatApp.API.Controllers
             });
         }
 
-        [HttpPut("access")]
+        [HttpPut]
         public async Task<IActionResult> UpdateMemberAccessAsync([FromBody] UpdateMemberAccessRequestDTO request)
         {
             if (!ModelState.IsValid || request.GroupMemberId <= 0)
@@ -68,7 +68,7 @@ namespace MinimalChatApp.API.Controllers
             });
         }
 
-        [HttpDelete("member")]
+        [HttpDelete]
         public async Task<IActionResult> RemoveMemberAsync([FromQuery] int id)
         {
             if (id <= 0)

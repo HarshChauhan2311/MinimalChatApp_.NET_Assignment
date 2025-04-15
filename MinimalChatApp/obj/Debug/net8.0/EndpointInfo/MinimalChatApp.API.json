@@ -96,7 +96,7 @@
         }
       }
     },
-    "/api": {
+    "/api/Group": {
       "get": {
         "tags": [
           "Group"
@@ -301,7 +301,7 @@
         }
       }
     },
-    "/api/member": {
+    "/api/Member": {
       "post": {
         "tags": [
           "Member"
@@ -331,28 +331,6 @@
           }
         }
       },
-      "delete": {
-        "tags": [
-          "Member"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/access": {
       "put": {
         "tags": [
           "Member"
@@ -376,6 +354,26 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Member"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -553,7 +551,7 @@
         }
       }
     },
-    "/api/SocialLogin/google-login": {
+    "/api/google-login": {
       "get": {
         "tags": [
           "SocialLogin"
@@ -565,7 +563,7 @@
         }
       }
     },
-    "/api/SocialLogin/google-response": {
+    "/api/google-response": {
       "get": {
         "tags": [
           "SocialLogin"

@@ -10,7 +10,7 @@ namespace MinimalChatApp.Controllers
 {
     [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [Route("api")]
+    [Route("api/[controller]")]
     [ApiController]
     public class GroupController : ControllerBase
     { 

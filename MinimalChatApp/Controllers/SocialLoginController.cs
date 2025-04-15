@@ -5,7 +5,7 @@ using MinimalChatApp.BAL.IServices;
 
 namespace MinimalChatApp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class SocialLoginController : ControllerBase
     { 

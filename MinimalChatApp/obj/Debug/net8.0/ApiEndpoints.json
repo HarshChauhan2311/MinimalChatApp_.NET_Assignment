@@ -1,79 +1,5 @@
 [
   {
-    "ContainingType": "MinimalChatApp.Controllers.GroupController",
-    "Method": "GetAllGroupsAsync",
-    "RelativePath": "api",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MinimalChatApp.Controllers.GroupController",
-    "Method": "CreateGroupAsync",
-    "RelativePath": "api",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "MinimalChatApp.DTO.CreateGroupRequestDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MinimalChatApp.Controllers.GroupController",
-    "Method": "UpdateGroupNameAsync",
-    "RelativePath": "api",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "MinimalChatApp.DTO.UpdateGroupRequestDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MinimalChatApp.Controllers.GroupController",
-    "Method": "DeleteGroupAsync",
-    "RelativePath": "api",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "MinimalChatApp.DTO.DeleteGroupRequestDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MinimalChatApp.API.Controllers.MemberController",
-    "Method": "UpdateMemberAccessAsync",
-    "RelativePath": "api/access",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "MinimalChatApp.DTO.UpdateMemberAccessRequestDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "MinimalChatApp.API.Controllers.ConversationController",
     "Method": "GetConversationHistoryAsync",
     "RelativePath": "api/Conversation/Search",
@@ -90,6 +16,84 @@
         "Name": "message",
         "Type": "System.String",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MinimalChatApp.Controllers.SocialLoginController",
+    "Method": "GoogleLogin",
+    "RelativePath": "api/google-login",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MinimalChatApp.Controllers.SocialLoginController",
+    "Method": "GoogleResponse",
+    "RelativePath": "api/google-response",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MinimalChatApp.Controllers.GroupController",
+    "Method": "GetAllGroupsAsync",
+    "RelativePath": "api/Group",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MinimalChatApp.Controllers.GroupController",
+    "Method": "CreateGroupAsync",
+    "RelativePath": "api/Group",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "MinimalChatApp.DTO.CreateGroupRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MinimalChatApp.Controllers.GroupController",
+    "Method": "UpdateGroupNameAsync",
+    "RelativePath": "api/Group",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "MinimalChatApp.DTO.UpdateGroupRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MinimalChatApp.Controllers.GroupController",
+    "Method": "DeleteGroupAsync",
+    "RelativePath": "api/Group",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "MinimalChatApp.DTO.DeleteGroupRequestDTO",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -181,7 +185,7 @@
   {
     "ContainingType": "MinimalChatApp.API.Controllers.MemberController",
     "Method": "AddMemberAsync",
-    "RelativePath": "api/member",
+    "RelativePath": "api/Member",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -196,8 +200,24 @@
   },
   {
     "ContainingType": "MinimalChatApp.API.Controllers.MemberController",
+    "Method": "UpdateMemberAccessAsync",
+    "RelativePath": "api/Member",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "MinimalChatApp.DTO.UpdateMemberAccessRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MinimalChatApp.API.Controllers.MemberController",
     "Method": "RemoveMemberAsync",
-    "RelativePath": "api/member",
+    "RelativePath": "api/Member",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -324,26 +344,6 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MinimalChatApp.Controllers.SocialLoginController",
-    "Method": "GoogleLogin",
-    "RelativePath": "api/SocialLogin/google-login",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MinimalChatApp.Controllers.SocialLoginController",
-    "Method": "GoogleResponse",
-    "RelativePath": "api/SocialLogin/google-response",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {
