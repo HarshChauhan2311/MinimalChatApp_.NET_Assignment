@@ -107,7 +107,7 @@ namespace MinimalChatApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetConversationHistoryAsync(
+        public async Task<IActionResult> GetPersonalConversationHistoryAsync(
            [FromQuery] int userId,
            [FromQuery] DateTime? before,
            [FromQuery] int count = 20,

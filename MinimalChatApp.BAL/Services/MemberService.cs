@@ -9,15 +9,17 @@ using MinimalChatApp.Entity;
 
 namespace MinimalChatApp.BAL.Services
 {
-    public class MemberService
+    public class MemberService : IMemberService
     {
         private readonly IMemberRepository _memberRepo;
+        private readonly IGroupRepository _groupRepo;
         private readonly IErrorLogService _errorLogService;
 
-        public MemberService(IMemberRepository memberRepo, IErrorLogService errorLogService)
+        public MemberService(IMemberRepository memberRepo, IErrorLogService errorLogService, IGroupRepository groupRepo)
         {
             _memberRepo = memberRepo;
             _errorLogService = errorLogService;
+            _groupRepo = groupRepo;
         }
 
         public async Task<(bool isSuccess, string? error, GroupMember? member)> AddMemberAsync(int userId, int groupId)
@@ -30,6 +32,10 @@ namespace MinimalChatApp.BAL.Services
                 var exists = await _memberRepo.IsAlreadyMemberAsync(userId, groupId);
                 if (exists)
                     return (false, "User is already a member of the group.", null);
+
+                var existsGroup = await _groupRepo.GetGroupByIdAsync(groupId);
+                if (existsGroup == null)
+                    return (false, "Group with ID: " + groupId + " does not exist.", null);
 
                 var added = await _memberRepo.AddMemberAsync(userId, groupId);
                 return added != null

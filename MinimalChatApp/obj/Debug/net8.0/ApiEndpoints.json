@@ -248,7 +248,7 @@
   },
   {
     "ContainingType": "MinimalChatApp.Controllers.MessagesController",
-    "Method": "GetConversationHistoryAsync",
+    "Method": "GetPersonalConversationHistoryAsync",
     "RelativePath": "api/Messages",
     "HttpMethod": "GET",
     "IsController": true,

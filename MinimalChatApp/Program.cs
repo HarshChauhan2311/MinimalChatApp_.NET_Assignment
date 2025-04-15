@@ -111,17 +111,21 @@ builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<IErrorLogService, ErrorLogService>();
 builder.Services.AddScoped<IGoogleAuthService, GoogleAuthService>();
 builder.Services.AddScoped<IGroupService, GroupService>();
+builder.Services.AddScoped<IMemberService, MemberService>();
+builder.Services.AddScoped<IGroupService, GroupService>();
 builder.Services.AddSingleton<IUserConnectionManagerService, UserConnectionManagerService>();
 
 // Generic Repository
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 // Repositories
+builder.Services.AddScoped<IErrorLogRepository, ErrorLogRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<ILogRepository, LogRepository>();
 builder.Services.AddScoped<IGroupRepository, GroupRepository>();
-builder.Services.AddScoped<IErrorLogRepository, ErrorLogRepository>();
+
 
 // SignalR User ID Provider
 builder.Services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();

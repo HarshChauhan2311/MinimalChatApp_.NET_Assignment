@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MinimalChatApp.DAL.Data;
+using MinimalChatApp.DAL.IRepositories;
 using MinimalChatApp.Entity;
 
 namespace MinimalChatApp.DAL.Repositories
 {
-    public class MemberRepository : GenericRepository<GroupMember>
+    public class MemberRepository : GenericRepository<GroupMember>,IMemberRepository
     {
         private readonly AppDbContext _context;
 
