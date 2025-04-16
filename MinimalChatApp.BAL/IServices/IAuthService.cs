@@ -16,21 +16,28 @@ namespace MinimalChatApp.BAL.IServices
         /// </summary>
         /// <param name="login">Login details including username/email and password.</param>
         /// <returns>A tuple indicating success status, status code, error message, JWT token, and user details.</returns>
-        Task<(bool IsSuccess, int StatusCode, string Error, string Token, ApplicationUser? User)> LoginAsync(LoginRequestDTO login);
+        Task<ServiceResponseDTO<LoginResponseDTO>> LoginAsync(LoginRequestDTO login);
 
         /// <summary>
         /// Registers a new user with the provided details.
         /// </summary>
         /// <param name="request">Registration details for the new user.</param>
         /// <returns>A tuple indicating success status, status code, error message, and user information.</returns>
-        Task<(bool IsSuccess, int StatusCode, string Error, ApplicationUser? User)> RegisterAsync(RegisterRequestDTO request);
+        Task<ServiceResponseDTO<ApplicationUser>> RegisterAsync(RegisterRequestDTO request);
 
         /// <summary>
         /// Retrieves a list of users based on the authenticated user's permissions.
         /// </summary>
         /// <param name="user">The current authenticated user's claims principal.</param>
         /// <returns>An <see cref="IActionResult"/> containing the user list or an error response.</returns>
-        Task<IActionResult> GetUsersAsync(ClaimsPrincipal user);
+        Task<ServiceResponseDTO<List<UserDTO>>> GetUsersAsync(ClaimsPrincipal user);
+
+        /// <summary>
+        /// Retrieves a Detail of user based on the authenticated user's permissions.
+        /// </summary>
+        /// <param name="user">The current authenticated user's claims principal.</param>
+        /// <returns>An <see cref="IActionResult"/> containing the user list or an error response.</returns>
+        Task<ServiceResponseDTO<UserDTO>> GetUserDetailAsync(string email);
     }
 
 }

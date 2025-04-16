@@ -1,9 +1,13 @@
-﻿namespace MinimalChatApp.DTO
+﻿using System.Text.Json.Serialization;
+
+namespace MinimalChatApp.DTO
 {
     public class GroupResponseDTO
     {
         public int Id { get; set; }
+        public int CreatorId { get; set; }
         public string Name { get; set; } = string.Empty;
+        [JsonIgnore]
         public List<string> Members { get; set; } = new();
         public DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; } = string.Empty;

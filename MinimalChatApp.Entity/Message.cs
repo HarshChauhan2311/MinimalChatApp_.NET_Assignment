@@ -13,14 +13,18 @@ namespace MinimalChatApp.Entity
         [Required]
         public int SenderId { get; set; }
 
-        public int? ReceiverId { get; set; } 
+        public int? ReceiverId { get; set; }
 
         public int? GroupId { get; set; } // for group messages
 
         [Required]
         public string Content { get; set; } = string.Empty;
 
+        public string? FileUrl { get; set; }
+        public string? ContentType { get; set; }
         public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+
+
 
         [ForeignKey("SenderId")]
         public ApplicationUser Sender { get; set; } = null!;

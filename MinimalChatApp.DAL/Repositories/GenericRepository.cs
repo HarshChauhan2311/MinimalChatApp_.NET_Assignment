@@ -21,6 +21,11 @@ namespace MinimalChatApp.DAL.Repositories
         public void Update(T entity) => _dbSet.Update(entity);
         public void Delete(T entity) => _dbSet.Remove(entity);
         public async Task SaveAsync() => await _context.SaveChangesAsync();
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 
 }

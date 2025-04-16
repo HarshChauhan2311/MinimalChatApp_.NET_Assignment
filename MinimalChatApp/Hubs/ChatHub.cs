@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.SignalR;
 using System.Collections.Concurrent;
 using Microsoft.Extensions.Logging;
 using MinimalChatApp.BAL.IServices;
+using MinimalChatApp.DTO;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MinimalChatApp.Hubs
 {
@@ -15,17 +17,22 @@ namespace MinimalChatApp.Hubs
         // Store active connections - using ConcurrentDictionary for thread safety
         private static readonly ConcurrentDictionary<string, string> _userConnections = new ConcurrentDictionary<string, string>();
         private readonly IGroupService _groupService;
+        private readonly IAuthService _authService;
+        private readonly IMessageService _messageService;
         private readonly IErrorLogService _errorLogService;
         private readonly ILogger<ChatHub> _logger;
 
         public ChatHub(
             IGroupService groupService,
             IErrorLogService errorLogService,
-            ILogger<ChatHub> logger)
+            ILogger<ChatHub> logger, IMessageService messageService,IAuthService authService)
+           
         {
             _groupService = groupService;
             _errorLogService = errorLogService;
             _logger = logger;
+            _messageService = messageService;
+            _authService = authService;
         }
 
         public override async Task OnConnectedAsync()
@@ -84,7 +91,7 @@ namespace MinimalChatApp.Hubs
             }
         }
 
-        public async Task SendMessage(string toUser, string message)
+        public async Task SendMessage(string toUser, string message, string? fileUrl, string? contentType)
         {
             try
             {
@@ -100,7 +107,7 @@ namespace MinimalChatApp.Hubs
                 // Check if it's a group message (toUser starts with "group:")
                 if (toUser.StartsWith("group:"))
                 {
-                    await SendGroupMessage(toUser, message);
+                    await SendGroupMessage(toUser, message, fileUrl, contentType);
                 }
                 else
                 {
@@ -124,11 +131,27 @@ namespace MinimalChatApp.Hubs
         private async Task SendPersonalMessage(string toUser, string message)
         {
             var senderEmail = Context.User.Identity?.Name;
-
+            var userIdClaim = Convert.ToInt16(Context.User?.FindFirst("userId")?.Value);
+            var toUserDetail = await _authService.GetUserDetailAsync(toUser);
+            var receiverId = toUserDetail.Data.Id;
             // Direct message to a user
             if (_userConnections.TryGetValue(toUser, out var receiverConnectionId))
             {
-                await Clients.Client(receiverConnectionId).SendAsync("ReceiveMessage", toUser, senderEmail, message);
+                try
+                {
+                    await Clients.Client(receiverConnectionId).SendAsync("ReceiveMessage", toUser, senderEmail, message);
+                    var dto = new MessageRequestDTO
+                    {
+                        ReceiverId = receiverId,
+                        Content = message
+                    };
+                    await _messageService.SendMessageAsync(userIdClaim, dto);
+
+                }
+                catch (Exception ex)
+                {
+                    throw new HubException("Message is not able to store in DB. Error:" + ex.Message);
+                }
                 _logger.LogInformation($"Direct message sent from {senderEmail} to {toUser}");
             }
             else
@@ -138,10 +161,11 @@ namespace MinimalChatApp.Hubs
             }
         }
 
-        private async Task SendGroupMessage(string toUser, string message)
+        private async Task SendGroupMessage(string toUser, string content, string? fileUrl, string? contentType)
         {
             var senderEmail = Context.User.Identity?.Name;
-            var groupId = toUser.Substring(6); // Remove "group:" prefix
+            var userIdClaim = Convert.ToInt16(Context.User?.FindFirst("userId")?.Value); 
+            var groupId = Convert.ToInt16(toUser.Substring(6)); // Remove "group:" prefix
             var group = await _groupService.GetGroupByIdAsync(Convert.ToInt16(groupId));
 
             if (group == null)
@@ -151,7 +175,7 @@ namespace MinimalChatApp.Hubs
             }
 
             // Verify sender is a member of the group
-            if (!group.Members.Contains(senderEmail))
+            if (!group.Data.Members.Contains(senderEmail))
             {
                 _logger.LogWarning($"User {senderEmail} attempted to send message to group {groupId} without being a member");
                 throw new HubException("You are not a member of this group");
@@ -159,11 +183,20 @@ namespace MinimalChatApp.Hubs
 
             // Send message to all group members except sender
             var sentCount = 0;
-            foreach (var memberEmail in group.Members.Where(m => m != senderEmail))
+            foreach (var memberEmail in group.Data.Members.Where(m => m != senderEmail))
             {
                 if (_userConnections.TryGetValue(memberEmail, out var connectionId))
                 {
-                    await Clients.Client(connectionId).SendAsync("ReceiveMessage", toUser, senderEmail, message);
+                    await Clients.Client(connectionId).SendAsync("ReceiveMessage", memberEmail, senderEmail, content);
+                    try
+                    {
+                        await _messageService.SendGroupMessageAsync(userIdClaim, groupId, content,fileUrl,contentType);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new HubException("Message is not able to store in DB. Error:" + ex.Message);
+                    }
                     sentCount++;
                 }
             }

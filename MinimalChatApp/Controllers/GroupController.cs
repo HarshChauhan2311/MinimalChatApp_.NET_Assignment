@@ -47,21 +47,22 @@ namespace MinimalChatApp.Controllers
             if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
                 return Unauthorized(new { error = "Unauthorized access." });
 
-            var (isSuccess, error, group) = await _groupService.CreateGroupAsync(request.Name, userId);
+            var response = await _groupService.CreateGroupAsync(request.Name, userId);
 
-            if (!isSuccess)
+            if (!response.IsSuccess)
             {
-                if (error?.Contains("exists") == true)
-                    return Conflict(new { error });
+                if (!string.IsNullOrEmpty(response.Error) && response.Error.Contains("exists", StringComparison.OrdinalIgnoreCase))
+                    return Conflict(new { error = response.Error });
 
-                return BadRequest(new { error });
+                return StatusCode(response.StatusCode, new { error = response.Error });
             }
 
-            return Ok(new
+            return Ok(new GroupResponseDTO
             {
-                groupId = group!.GroupId,
-                name = group.GroupName,
-                createdBy = group.CreatedBy
+                Id = response.Data!.Id,
+                Name = response.Data.Name,
+                CreatedBy   = response.Data.CreatedBy
+                
             });
         }
 
@@ -71,21 +72,22 @@ namespace MinimalChatApp.Controllers
             if (!ModelState.IsValid || request.GroupId <= 0)
                 return BadRequest(new { error = "Invalid group update request." });
 
-            var (isSuccess, error, group) = await _groupService.UpdateGroupNameAsync(request.GroupId, request.Name);
-
-            if (!isSuccess)
+            var response = await _groupService.UpdateGroupNameAsync(request.GroupId, request.Name);
+            if (!response.IsSuccess)
             {
-                if (error?.Contains("exists") == true)
-                    return Conflict(new { error });
+                if (!string.IsNullOrEmpty(response.Error) && response.Error.Contains("exists", StringComparison.OrdinalIgnoreCase))
+                    return Conflict(new { error = response.Error });
 
-                return BadRequest(new { error });
+                return StatusCode(response.StatusCode, new { error = response.Error });
             }
 
-            return Ok(new
+            return Ok(new GroupResponseDTO
             {
-                groupId = group!.GroupId,
-                name = group.GroupName
+                Id = response.Data!.Id,
+                Name = response.Data.Name,
+
             });
+         
         }
 
         [HttpDelete]
@@ -99,21 +101,22 @@ namespace MinimalChatApp.Controllers
             if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int currentUserId))
                 return Unauthorized(new { error = "Unauthorized access." });
 
-            var (isSuccess, error, group) = await _groupService.DeleteGroupAsync(request.GroupId, request.Name, currentUserId, currentUserId);
-
-            if (!isSuccess)
+            var response = await _groupService.DeleteGroupAsync(request.GroupId, request.Name, currentUserId, currentUserId);
+            if (!response.IsSuccess)
             {
-                if (error?.Contains("already deleted") == true)
-                    return Conflict(new { error });
+                if (!string.IsNullOrEmpty(response.Error) && response.Error.Contains("exists", StringComparison.OrdinalIgnoreCase))
+                    return Conflict(new { error = response.Error });
 
-                return BadRequest(new { error });
+                return StatusCode(response.StatusCode, new { error = response.Error });
             }
 
-            return Ok(new
+
+            return Ok(new GroupResponseDTO
             {
-                groupId = group!.GroupId,
-                name = group.GroupName,
-                email = group.Creator.Email
+                Id = response.Data!.Id,
+                Name = response.Data.Name,
+                CreatedBy = response.Data.CreatedBy
+
             });
         }
         #endregion

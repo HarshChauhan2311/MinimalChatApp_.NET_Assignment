@@ -14,6 +14,7 @@ namespace MinimalChatApp.DAL.IRepositories
         void Update(T entity);
         void Delete(T entity);
         Task SaveAsync();
+        Task<bool> SaveChangesAsync();  // <-- Add this
     }
 
 }

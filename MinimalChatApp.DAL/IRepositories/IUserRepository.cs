@@ -13,7 +13,7 @@ namespace MinimalChatApp.DAL.IRepositories
         /// <returns>
         /// A <see cref="User"/> object if found; otherwise, <c>null</c>.
         /// </returns>
-        Task<UserDto?> GetByIdAsync(int userId);
+        Task<UserDTO?> GetByIdAsync(int userId);
 
         /// <summary>
         /// Retrieves a user by their email address asynchronously.
@@ -43,7 +43,16 @@ namespace MinimalChatApp.DAL.IRepositories
         /// <returns>
         /// A list of <see cref="User"/> objects excluding the specified user.
         /// </returns>
-        Task<List<UserDto>> GetOtherUsersAsync(string currentUserEmail);
+        Task<List<UserDTO>> GetOtherUsersAsync(string currentUserEmail);
+
+        /// <summary>
+        /// Retrieves a Details of user excluding the currently logged-in user.
+        /// </summary>
+        /// <param name="email">The email of the  user to exclude from results.</param>
+        /// <returns>
+        /// A list of <see cref="User"/> objects excluding the specified user.
+        /// </returns>
+        Task<UserDTO> GetUserDetailByEmailAsync(string email);
 
     }
 }

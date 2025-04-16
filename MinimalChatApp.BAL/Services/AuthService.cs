@@ -33,15 +33,15 @@ namespace MinimalChatApp.BAL.Services
             _userManager = userManager;
         }
 
-        public async Task<(bool IsSuccess, int StatusCode, string Error, string Token, ApplicationUser? User)> LoginAsync(LoginRequestDTO login)
+        public async Task<ServiceResponseDTO<LoginResponseDTO>> LoginAsync(LoginRequestDTO login)
         {
             if (string.IsNullOrWhiteSpace(login.Email) || string.IsNullOrWhiteSpace(login.Password))
-                return (false, 400, "Email and password are required.", string.Empty, null);
+                return new ServiceResponseDTO<LoginResponseDTO> { IsSuccess = false, StatusCode = 400, Error = "Email and password are required." };
 
             var user = await _userManager.FindByNameAsync(login.Email);
             if (user == null)
             {
-                return (false, 404, "User not found.", string.Empty, null);
+                return new ServiceResponseDTO<LoginResponseDTO> { IsSuccess = false, StatusCode = 404, Error = "User not found." };
             }
 
             var passwordHasher = new PasswordHasher<ApplicationUser>();
@@ -52,32 +52,41 @@ namespace MinimalChatApp.BAL.Services
                 try
                 {
                     var token = _jwtService.GenerateToken(user);
-                    return (true, 200, string.Empty, token, user);
+                    return new ServiceResponseDTO<LoginResponseDTO>
+                    {
+                        IsSuccess = true,
+                        StatusCode = 200,
+                        Data = new LoginResponseDTO
+                        {
+                            Token = token,
+                            User = user
+                        }
+                    };
                 }
                 catch (Exception ex)
                 {
                     await _errorLogService.LogAsync(ex);
-                    return (false, 500, "An error occurred while generating token.", string.Empty, null);
+                    return new ServiceResponseDTO<LoginResponseDTO> { IsSuccess = false, StatusCode = 500, Error = "An error occurred while generating token." };
                 }
             }
             else
             {
-                return (false, 401, "Invalid credentials.", string.Empty, null);
+                return new ServiceResponseDTO<LoginResponseDTO> { IsSuccess = false, StatusCode = 401, Error = "Invalid credentials." };
             }
         }
 
 
-        public async Task<(bool IsSuccess, int StatusCode, string Error, ApplicationUser? User)> RegisterAsync(RegisterRequestDTO requestDto)
+        public async Task<ServiceResponseDTO<ApplicationUser>> RegisterAsync(RegisterRequestDTO requestDto)
         {
             if (string.IsNullOrWhiteSpace(requestDto.Email) || string.IsNullOrWhiteSpace(requestDto.Name) || string.IsNullOrWhiteSpace(requestDto.Password))
             {
-                return (false, 400, "Registration failed due to validation errors.", null);
+                return new ServiceResponseDTO<ApplicationUser> { IsSuccess = false, StatusCode = 400, Error = "Registration failed due to validation errors." };
             }
 
             var existingUser = await _userRepo.GetByEmailAsync(requestDto.Email);
             if (existingUser != null)
             {
-                return (false, 409, "Email already registered.", null);
+                return new ServiceResponseDTO<ApplicationUser> { IsSuccess = false, StatusCode = 409, Error = "Email already registered." };
             }
 
             try
@@ -97,41 +106,99 @@ namespace MinimalChatApp.BAL.Services
                 if (!result.Succeeded)
                 {
                     var error = string.Join("; ", result.Errors.Select(e => e.Description));
-                    return (false, 400, error, null);
+                    return new ServiceResponseDTO<ApplicationUser> { IsSuccess = false, StatusCode = 400, Error = error };
                 }
 
-                return (true, 200, string.Empty, user);
+                return new ServiceResponseDTO<ApplicationUser> { IsSuccess = true, StatusCode = 200, Data = user };
             }
             catch (Exception ex)
             {
                 await _errorLogService.LogAsync(ex);
-                return (false, 500, ex.Message, null);
+                return new ServiceResponseDTO<ApplicationUser> { IsSuccess = false, StatusCode = 500, Error = "Internal server error." };
             }
         }
 
 
-        public async Task<IActionResult> GetUsersAsync(ClaimsPrincipal user)
+        public async Task<ServiceResponseDTO<List<UserDTO>>> GetUsersAsync(ClaimsPrincipal user)
         {
             try
             {
                 var currentUserEmail = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
                 if (string.IsNullOrEmpty(currentUserEmail))
-                    return new UnauthorizedObjectResult(new { error = "Unauthorized access" });
+                    return new ServiceResponseDTO<List<UserDTO>>
+                    {
+                        IsSuccess = false,
+                        StatusCode = 401,
+                        Error = "Unauthorized access."
+                    };
 
                 var users = await _userRepo.GetAllAsync();  // Using IUserRepository
                                                             //var result = users.Select(u => new { id = u.Id, name = u.Name, email = u.Email });
                                                             // Exclude the current user from the list
+                                                            // Exclude the current user from the list and map to UserDTO
                 var filteredUsers = users
                     .Where(u => !u.Email.Equals(currentUserEmail, StringComparison.OrdinalIgnoreCase))
-                    .Select(u => new { id = u.Id, name = u.Name, email = u.Email });
-                return new OkObjectResult(new { users = filteredUsers });
+                    .Select(u => new UserDTO
+                    {
+                        Id = u.Id,
+                        Name = u.Name,
+                        Email = u.Email
+                    }).ToList();
+
+                return new ServiceResponseDTO<List<UserDTO>>
+                {
+                    IsSuccess = true,
+                    StatusCode = 200,
+                    Data = filteredUsers
+                };
             }
             catch (Exception ex)
             {
                 await _errorLogService.LogAsync(ex);
-                return new BadRequestObjectResult(ex);
+                return new ServiceResponseDTO<List<UserDTO>>
+                {
+                    IsSuccess = false,
+                    StatusCode = 500,
+                    Error = "Failed to retrieve user list."
+                };
             }
         }
+
+        public async Task<ServiceResponseDTO<UserDTO>> GetUserDetailAsync(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return new ServiceResponseDTO<UserDTO>
+                {
+                    IsSuccess = false,
+                    StatusCode = 401,
+                    Error = "Unauthorized access."
+                };
+            }
+
+            try
+            {
+                var user = await _userRepo.GetUserDetailByEmailAsync(email);
+                
+                return new ServiceResponseDTO<UserDTO>
+                {
+                    IsSuccess = true,
+                    StatusCode = 200,
+                    Data = user
+                };
+            }
+            catch (Exception ex)
+            {
+                await _errorLogService.LogAsync(ex);
+                return new ServiceResponseDTO<UserDTO>
+                {
+                    IsSuccess = false,
+                    StatusCode = 500,
+                    Error = "Failed to retrieve user list."
+                };
+            }
+        }
+
 
     }
 }

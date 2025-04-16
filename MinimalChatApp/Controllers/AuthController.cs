@@ -43,46 +43,79 @@ namespace MinimalChatApp.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> LoginAsync([FromBody] LoginRequestDTO login)
         {
+            // Validate the input
             if (!ModelState.IsValid ||
                 string.IsNullOrWhiteSpace(login.Email) ||
                 string.IsNullOrWhiteSpace(login.Password))
             {
-                return BadRequest(new { error = "Email and password are required." });
+                return BadRequest(new ServiceResponseDTO<LoginResponseDTO>
+                {
+                    IsSuccess = false,
+                    Error = "Email and password are required.",
+                    StatusCode = 400
+                });
             }
 
-            var (isSuccess, statusCode, error, token, user) = await _authService.LoginAsync(login);
+            // Call the service to handle login
+            var response = await _authService.LoginAsync(login);
 
             // If login failed, return Unauthorized
-            if (!isSuccess)
-                return StatusCode(statusCode, new { error });
+            if (!response.IsSuccess)
+            {
+                return StatusCode(response.StatusCode, new ServiceResponseDTO<LoginResponseDTO>
+                {
+                    IsSuccess = false,
+                    Error = response.Error,
+                    StatusCode = response.StatusCode
+                });
+            }
 
             // Return successful response with the token and user profile
-            return Ok(new
+            return Ok(new 
             {
-                token,
-                profile = new
-                {
-                    id = user.Id,
-                    name = user.Name,
-                    email = user.Email
-                }
+                    Token = response.Data.Token, // Assuming the token is part of response data
+                    User = new 
+                    {
+                        Id = response.Data.User.Id,
+                        Name = response.Data.User.Name,
+                        Email = response.Data.User.Email
+                    }
             });
         }
 
 
+
         [HttpPost("register")]
+        [HttpPost]
         public async Task<IActionResult> Register([FromBody] RegisterRequestDTO request)
         {
             if (!ModelState.IsValid)
-                return BadRequest(new { error = "Invalid registration data." });
+                return BadRequest(new ServiceResponseDTO<ApplicationUser>
+                {
+                    IsSuccess = false,
+                    Error = "Invalid registration data.",
+                    StatusCode = 400
+                });
 
-            var (isSuccess, statusCode, error, user) = await _authService.RegisterAsync(request);
+            var response = await _authService.RegisterAsync(request);
 
-            if (!isSuccess)
-                return StatusCode(statusCode, new { error });
+            if (!response.IsSuccess)
+                return StatusCode(response.StatusCode, new ServiceResponseDTO<ApplicationUser>
+                {
+                    IsSuccess = false,
+                    Error = response.Error,
+                    StatusCode = response.StatusCode
+                });
 
-            return Ok(new { userId = user.Id, name = user.Name, email = user.Email });
+                // If registration is successful, return the user details wrapped in a response
+                return Ok(new 
+                {
+                   Id = response.Data.Id,
+                   Name = response.Data.Name,
+                   Email = response.Data.Email
+                });
         }
+
 
         #endregion
 

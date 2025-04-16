@@ -17,132 +17,171 @@ namespace MinimalChatApp.BAL.Services
             _errorLogService = errorLogService;
         }
 
-        public async Task<(bool isSuccess, string? error, Group? group)> CreateGroupAsync(string groupName, int userId)
+        public async Task<ServiceResponseDTO<GroupResponseDTO>> CreateGroupAsync(string groupName, int userId)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(groupName))
-                    return (false, "Group name is required.", null);
+                    return new ServiceResponseDTO<GroupResponseDTO> { IsSuccess = false, Error = "Group name already exists.", StatusCode = 409 };
 
                 var exists = await _groupRepo.GroupNameExistsAsync(groupName);
                 if (exists)
-                    return (false, "Group name already exists.", null);
+                    return new ServiceResponseDTO<GroupResponseDTO> { IsSuccess = false, Error = "Group name already exists.", StatusCode = 409 };
 
                 var group = await _groupRepo.CreateGroupAsync(groupName, userId);
-                return group == null
-                    ? (false, "Failed to create group.", null)
-                    : (true, null, group);
+                if (group == null)
+                    return new ServiceResponseDTO<GroupResponseDTO> { IsSuccess = false, Error = "Failed to create group.", StatusCode = 500 };
+
+                return new ServiceResponseDTO<GroupResponseDTO> { IsSuccess = true, Data = group, StatusCode = 200 };
             }
             catch (Exception ex)
             {
                 await _errorLogService.LogAsync(ex);
-                return (false, "Internal error occurred.", null);
+                return new ServiceResponseDTO<GroupResponseDTO> { IsSuccess = false, Error = "Internal error occurred.", StatusCode = 500 };
             }
         }
 
-        public async Task<(bool isSuccess, string? error, Group? group)> UpdateGroupNameAsync(int groupId, string newName)
+        public async Task<ServiceResponseDTO<GroupResponseDTO>> UpdateGroupNameAsync(int groupId, string newName)
         {
             try
             {
                 if (groupId <= 0 || string.IsNullOrWhiteSpace(newName))
-                    return (false, "Invalid group ID or name.", null);
+                    return new ServiceResponseDTO<GroupResponseDTO> { IsSuccess = false, Error = "Invalid group ID or name.", StatusCode = 400 };
 
                 var group = await _groupRepo.GetByIdAsync(groupId);
                 if (group == null)
-                    return (false, "Group not found.", null);
+                    return new ServiceResponseDTO<GroupResponseDTO> { IsSuccess = false, Error = "Group not found.", StatusCode = 404 };
 
                 var exists = await _groupRepo.GroupNameExistsAsync(newName, groupId);
                 if (exists)
-                    return (false, "Group name already exists.", null);
+                    return new ServiceResponseDTO<GroupResponseDTO> { IsSuccess = false, Error = "Group name already exists.", StatusCode = 409 };
 
                 var updated = await _groupRepo.UpdateGroupNameAsync(group, newName);
-                return updated == null
-                    ? (false, "Failed to update group name.", null)
-                    : (true, null, updated);
+                if (updated == null)
+                    return new ServiceResponseDTO<GroupResponseDTO> { IsSuccess = false, Error = "Failed to update group name.", StatusCode = 500 };
+
+                return new ServiceResponseDTO<GroupResponseDTO> { IsSuccess = true, Data = updated, StatusCode = 200 };
             }
             catch (Exception ex)
             {
                 await _errorLogService.LogAsync(ex);
-                return (false, "Internal error occurred.", null);
+                return new ServiceResponseDTO<GroupResponseDTO> { IsSuccess = false, Error = "Internal error occurred.", StatusCode = 500 };
             }
         }
 
-        public async Task<(bool isSuccess, string? error, Group? group)> DeleteGroupAsync(int groupId, string name, int userId, int currentUserId)
+        public async Task<ServiceResponseDTO<GroupResponseDTO>> DeleteGroupAsync(int groupId, string name, int userId, int currentUserId)
         {
             try
             {
-                var group = await _groupRepo.GetByIdAndNameAsync(groupId, name);
-                if (group == null)
-                    return (false, "Group not found or already deleted.", null);
+                var groupEntity = await _groupRepo.GetByIdAndNameAsync(groupId, name);
+                if (groupEntity == null)
+                    return new ServiceResponseDTO<GroupResponseDTO> { IsSuccess = false, Error = "Group not found or already deleted.", StatusCode = 404 };
 
-                if (group.CreatedBy != userId || currentUserId != userId)
-                    return (false, "Only the group creator can delete the group.", null);
+                if (currentUserId != userId || groupEntity.CreatedBy != userId)
+                    return new ServiceResponseDTO<GroupResponseDTO> { IsSuccess = false, Error = "Only the group creator can delete the group.", StatusCode = 403 };
 
-                var deleted = await _groupRepo.DeleteGroupAsync(group);
-                return deleted
-                    ? (true, null, group)
-                    : (false, "Failed to delete the group.", null);
+                var deleted = await _groupRepo.DeleteGroupAsync(groupEntity);
+
+                if (deleted != null)
+                    return new ServiceResponseDTO<GroupResponseDTO> { IsSuccess = false, Error = "Failed to delete the group.", StatusCode = 500 };
+
+                var dto = new GroupResponseDTO
+                {
+                    Id = groupEntity.GroupId,
+                    Name = groupEntity.GroupName,
+                };
+
+                return new ServiceResponseDTO<GroupResponseDTO> { IsSuccess = true, Data = dto, StatusCode = 200 };
             }
             catch (Exception ex)
             {
                 await _errorLogService.LogAsync(ex);
-                return (false, "Internal error occurred.", null);
+                return new ServiceResponseDTO<GroupResponseDTO> { IsSuccess = false, Error = "Internal error occurred.", StatusCode = 500 };
             }
         }
 
-        public async Task<List<GroupResponseDTO>> GetAllGroupsAsync(int userId)
+        public async Task<ServiceResponseDTO<List<GroupResponseDTO>>> GetAllGroupsAsync(int userId)
         {
             try
             {
                 var groups = await _groupRepo.GetAllGroupsWithMembersAsync(userId);
-                return groups.Select(g =>
+                var groupResponseList = groups.Select(g =>
                 {
-                    var memberEmails = g.Members?.Select(m => m.User.Email).ToList() ?? new List<string>();
-                    var creatorEmail = g.Creator?.Email;
+                    // Directly use the Members property as a List<string>
+                    var memberEmails = g.Members?.ToList() ?? new List<string>();
+                    var creatorEmail = g.CreatedBy;
                     if (!string.IsNullOrEmpty(creatorEmail) && !memberEmails.Contains(creatorEmail))
                         memberEmails.Add(creatorEmail);
 
                     return new GroupResponseDTO
                     {
-                        Id = g.GroupId,
-                        Name = g.GroupName,
+                        Id = g.Id,
+                        Name = g.Name,
                         CreatedAt = g.CreatedAt,
                         CreatedBy = creatorEmail ?? "unknown",
                         Members = memberEmails.Distinct().ToList()
                     };
                 }).ToList();
-            }
-            catch (Exception ex)
-            {
-                await _errorLogService.LogAsync(ex);
-                return new List<GroupResponseDTO>();
-            }
-        }
 
-        public async Task<GroupResponseDTO?> GetGroupByIdAsync(int groupId)
-        {
-            try
-            {
-                var group = await _groupRepo.GetGroupByIdAsync(groupId);
-                if (group == null) return null;
-
-                return new GroupResponseDTO
+                return new ServiceResponseDTO<List<GroupResponseDTO>>
                 {
-                    Id = group.GroupId,
-                    Name = group.GroupName,
-                    CreatedAt = group.CreatedAt,
-                    CreatedBy = group.Creator?.Email ?? "unknown",
-                    Members = group.Members?
-                        .Select(m => m.User.Email)
-                        .Distinct()
-                        .ToList() ?? new List<string>()
+                    IsSuccess = true,
+                    Data = groupResponseList,
+                    StatusCode = 200
                 };
             }
             catch (Exception ex)
             {
                 await _errorLogService.LogAsync(ex);
-                return null;
+                return new ServiceResponseDTO<List<GroupResponseDTO>>
+                {
+                    IsSuccess = false,
+                    Error = "Internal error occurred.",
+                    StatusCode = 500
+                };
             }
         }
+
+        public async Task<ServiceResponseDTO<GroupResponseDTO?>> GetGroupByIdAsync(int groupId)
+        {
+            try
+            {
+                var group = await _groupRepo.GetGroupByIdAsync(groupId);
+                if (group == null)
+                    return new ServiceResponseDTO<GroupResponseDTO?>
+                    {
+                        IsSuccess = false,
+                        Error = "Group not found.",
+                        StatusCode = 404
+                    };
+
+                var groupResponse = new GroupResponseDTO
+                {
+                    Id = group.Id,
+                    Name = group.Name,
+                    CreatedAt = group.CreatedAt,
+                    CreatedBy = group.CreatedBy,
+                    Members = group.Members?.Distinct().ToList() ?? new List<string>() // Ensure unique members
+                };
+
+                return new ServiceResponseDTO<GroupResponseDTO?>
+                {
+                    IsSuccess = true,
+                    Data = groupResponse,
+                    StatusCode = 200
+                };
+            }
+            catch (Exception ex)
+            {
+                await _errorLogService.LogAsync(ex);
+                return new ServiceResponseDTO<GroupResponseDTO?>
+                {
+                    IsSuccess = false,
+                    Error = "Internal error occurred.",
+                    StatusCode = 500
+                };
+            }
+        }
+
     }
 }

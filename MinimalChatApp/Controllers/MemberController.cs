@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Azure;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MinimalChatApp.BAL.IServices;
+using MinimalChatApp.BAL.Services;
 using MinimalChatApp.DTO;
+using MinimalChatApp.Entity;
 
 namespace MinimalChatApp.API.Controllers
 {
@@ -33,54 +36,47 @@ namespace MinimalChatApp.API.Controllers
             if (!ModelState.IsValid || request.UserId <= 0 || request.GroupId <= 0)
                 return BadRequest(new { error = "Invalid user or group ID." });
 
-            var (isSuccess, error, member) = await _memberService.AddMemberAsync(request.UserId, request.GroupId);
+            var response = await _memberService.AddMemberAsync(request);
 
-            if (!isSuccess)
-                return BadRequest(new { error });
+            if (!response.IsSuccess)
+                return StatusCode(response.StatusCode, new { error = response.Error });
 
-            return Ok(new
+
+
+            var res = new AddMemberResponseDTO
             {
-                id = member!.Id,
-                userId = member.UserId,
-                groupId = member.GroupId
-            });
+                Id = response.Data!.Id,
+                UserId = response.Data.UserId,
+                GroupId = response.Data.GroupId
+            };
+
+            var finalResponse = new ServiceResponseDTO<AddMemberResponseDTO>
+            {
+                IsSuccess = true,
+                Data = res,
+                StatusCode = 200
+            };
+
+            return Ok(finalResponse);
+          
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateMemberAccessAsync([FromBody] UpdateMemberAccessRequestDTO request)
-        {
-            if (!ModelState.IsValid || request.GroupMemberId <= 0)
-                return BadRequest(new { error = "Invalid request parameters." });
-
-            var (isSuccess, error, member) = await _memberService.UpdateMemberAccessAsync(
-                request.GroupMemberId, request.AccessType, request.Days);
-
-            if (!isSuccess)
-                return BadRequest(new { error });
-
-            return Ok(new
-            {
-                id = member!.Id,
-                userId = member.UserId,
-                groupId = member.GroupId,
-                accessType = member.AccessType,
-                days = member.Days
-            });
-        }
-
+       
         [HttpDelete]
         public async Task<IActionResult> RemoveMemberAsync([FromQuery] int id)
         {
-            if (id <= 0)
-                return BadRequest(new { error = "Invalid group member ID." });
+            var userIdClaim = User.FindFirst("userId");
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+                return Unauthorized(new { error = "Unauthorized access." });
 
-            var (isSuccess, error) = await _memberService.RemoveMemberAsync(id);
+            var response = await _memberService.RemoveMemberAsync(id);
 
-            if (!isSuccess)
-                return BadRequest(new { error });
+            if (!response.IsSuccess)
+                return StatusCode(response.StatusCode, new { error = response.Error });
 
-            return Ok(new { message = "Member deleted successfully." });
+            return Ok(response); // contains IsSuccess, Message, StatusCode
         }
+
         #endregion
     }
 }

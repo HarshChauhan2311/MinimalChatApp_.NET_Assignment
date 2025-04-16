@@ -34,24 +34,6 @@ namespace MinimalChatApp.Controllers
         #endregion
 
         #region Public methods
-        [HttpPost("send")]
-        public async Task<IActionResult> SendRealtimeMessageAsync([FromBody] SendMessageDto dto)
-        {
-            //await _hubContext.Clients.User(dto.ToUser).SendAsync("ReceiveMessage", User.Identity?.Name, dto.Message);
-            //return Ok(new { status = "sent" });
-            // Create a message object that matches our client's expected format
-            var message = new
-            {
-                to = dto.ToUser,
-                from = User.Identity?.Name,
-                message = dto.Message
-            };
-
-            // Send the formatted message object
-            await _hubContext.Clients.User(dto.ToUser).SendAsync("ReceiveMessage", message);
-            return Ok(new { status = "sent" });
-        }
-
         [HttpPost]
         public async Task<IActionResult> SendMessageAsync([FromBody] MessageRequestDTO request)
         {
@@ -70,7 +52,7 @@ namespace MinimalChatApp.Controllers
                     return BadRequest(result);
             }
 
-            return Ok(result);
+            return Ok(result.Data);
         }
 
         [HttpPut("{messageId}")]
@@ -83,12 +65,12 @@ namespace MinimalChatApp.Controllers
             if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
                 return Unauthorized(new { error = "Unauthorized access." });
 
-            var (isSuccess, error, message, statusCode) = await _messageService.EditMessageAsync(userId, messageId, request);
+            var response = await _messageService.EditMessageAsync(userId, messageId, request);
 
-            if (!isSuccess)
-                return StatusCode(statusCode, new { error });
+            if (!response.IsSuccess)
+                return StatusCode(response.StatusCode, new { error = response.Error });
 
-            return Ok(new { message });
+            return Ok(response.Data); // contains IsSuccess, Message, StatusCode
         }
 
         [HttpDelete("{messageId}")]
@@ -98,29 +80,23 @@ namespace MinimalChatApp.Controllers
             if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
                 return Unauthorized(new { error = "Unauthorized access." });
 
-            var (isSuccess, error, message, statusCode) = await _messageService.DeleteMessageAsync(userId, messageId);
+            var response = await _messageService.DeleteMessageAsync(userId, messageId);
 
-            if (!isSuccess)
-                return StatusCode(statusCode, new { error });
-
-            return Ok(new { message });
+            return Ok(response.Data); // contains IsSuccess, Message, StatusCode
         }
 
         [HttpGet]
         public async Task<IActionResult> GetPersonalConversationHistoryAsync(
-           [FromQuery] int userId,
-           [FromQuery] DateTime? before,
-           [FromQuery] int count = 20,
-           [FromQuery] string sort = "asc")
+          [FromBody] PersonalChatHistoryRequestDTO request)
         {
             var userIdClaim = User.FindFirst("userId");
             if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int currentUserId))
                 return Unauthorized(new { error = "Unauthorized access." });
 
-            if (count <= 0 || (sort.ToLower() != "asc" && sort.ToLower() != "desc"))
+            if (request.Count <= 0 || (request.Sort.ToLower() != "asc" && request.Sort.ToLower() != "desc"))
                 return BadRequest(new { error = "Invalid request parameters." });
 
-            var result = await _messageService.GetConversationHistoryAsync(currentUserId, userId, before, count, sort);
+            var result = await _messageService.GetConversationHistoryAsync(currentUserId, request.UserId, request.Before, request.Count, request.Sort);
             if (result != null && result.GetType().GetProperty("error") != null)
             {
                 var errorValue = result.GetType().GetProperty("error")?.GetValue(result);
@@ -128,7 +104,14 @@ namespace MinimalChatApp.Controllers
                     return BadRequest(result);
             }
 
-            return Ok(result);
+            // Assuming result.Data is a single SentMessageDTO object
+            // Assuming result.Data is a List<SentMessageDTO> or IEnumerable<SentMessageDTO>
+            var response = new
+            {
+                messages = result.Data // Directly assign the list of objects
+            };
+
+            return Ok(response);
         }
         #endregion
 

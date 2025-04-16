@@ -1,12 +1,846 @@
 {
   "Version": 1,
-  "Hash": "eHMorAwPC3Ks/gTrKTS8wI2Z26tLqrKiNWwB11dwvWo=",
+  "Hash": "9/la31wt50b5P67icf3FeTQRTwzWwez9gkhx1HshrAc=",
   "Source": "MinimalChatApp.API",
   "BasePath": "_content/MinimalChatApp.API",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "MinimalChatApp.API\\wwwroot",
+      "Source": "MinimalChatApp.API",
+      "ContentRoot": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\",
+      "BasePath": "_content/MinimalChatApp.API",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\457f2fe9-91fb-4f7c-9c8d-8ebdb7d3c331.jpg",
+      "SourceId": "MinimalChatApp.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\",
+      "BasePath": "_content/MinimalChatApp.API",
+      "RelativePath": "uploads/457f2fe9-91fb-4f7c-9c8d-8ebdb7d3c331#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "9prbt9m7t7",
+      "Integrity": "/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\457f2fe9-91fb-4f7c-9c8d-8ebdb7d3c331.jpg"
+    },
+    {
+      "Identity": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\5547e3e4-2124-4b77-b8d6-439ef58af52b.pdf",
+      "SourceId": "MinimalChatApp.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\",
+      "BasePath": "_content/MinimalChatApp.API",
+      "RelativePath": "uploads/5547e3e4-2124-4b77-b8d6-439ef58af52b#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "954d5nolbc",
+      "Integrity": "PfedNKu8qZMI55y5RGHBiTWCYE1oMppB/UvsGIXmrbQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\5547e3e4-2124-4b77-b8d6-439ef58af52b.pdf"
+    },
+    {
+      "Identity": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\6d9283c2-1aa1-407f-a697-aedf556c5687.jpg",
+      "SourceId": "MinimalChatApp.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\",
+      "BasePath": "_content/MinimalChatApp.API",
+      "RelativePath": "uploads/6d9283c2-1aa1-407f-a697-aedf556c5687#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "9prbt9m7t7",
+      "Integrity": "/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\6d9283c2-1aa1-407f-a697-aedf556c5687.jpg"
+    },
+    {
+      "Identity": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\a4e0f83d-dabf-4eb8-be11-dd95eebe03e8.jpg",
+      "SourceId": "MinimalChatApp.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\",
+      "BasePath": "_content/MinimalChatApp.API",
+      "RelativePath": "uploads/a4e0f83d-dabf-4eb8-be11-dd95eebe03e8#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "9prbt9m7t7",
+      "Integrity": "/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\a4e0f83d-dabf-4eb8-be11-dd95eebe03e8.jpg"
+    },
+    {
+      "Identity": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\b956ab25-eb5c-4b3a-aebd-eb101d142d7b.jpg",
+      "SourceId": "MinimalChatApp.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\",
+      "BasePath": "_content/MinimalChatApp.API",
+      "RelativePath": "uploads/b956ab25-eb5c-4b3a-aebd-eb101d142d7b#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "9prbt9m7t7",
+      "Integrity": "/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\b956ab25-eb5c-4b3a-aebd-eb101d142d7b.jpg"
+    },
+    {
+      "Identity": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\c1440df2-d701-4dba-ac7b-cb772f425296.jpg",
+      "SourceId": "MinimalChatApp.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\",
+      "BasePath": "_content/MinimalChatApp.API",
+      "RelativePath": "uploads/c1440df2-d701-4dba-ac7b-cb772f425296#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "9prbt9m7t7",
+      "Integrity": "/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\c1440df2-d701-4dba-ac7b-cb772f425296.jpg"
+    },
+    {
+      "Identity": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\c39d47fb-2a58-4830-927a-53ca4f518c32.pdf",
+      "SourceId": "MinimalChatApp.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\",
+      "BasePath": "_content/MinimalChatApp.API",
+      "RelativePath": "uploads/c39d47fb-2a58-4830-927a-53ca4f518c32#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "954d5nolbc",
+      "Integrity": "PfedNKu8qZMI55y5RGHBiTWCYE1oMppB/UvsGIXmrbQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\c39d47fb-2a58-4830-927a-53ca4f518c32.pdf"
+    },
+    {
+      "Identity": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\deb37ffa-6969-4e83-9bc8-6dfdfa5612f7.jpg",
+      "SourceId": "MinimalChatApp.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\",
+      "BasePath": "_content/MinimalChatApp.API",
+      "RelativePath": "uploads/deb37ffa-6969-4e83-9bc8-6dfdfa5612f7#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "9prbt9m7t7",
+      "Integrity": "/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\deb37ffa-6969-4e83-9bc8-6dfdfa5612f7.jpg"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "uploads/457f2fe9-91fb-4f7c-9c8d-8ebdb7d3c331.9prbt9m7t7.jpg",
+      "AssetFile": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\457f2fe9-91fb-4f7c-9c8d-8ebdb7d3c331.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5468"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 10:18:13 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "9prbt9m7t7"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/457f2fe9-91fb-4f7c-9c8d-8ebdb7d3c331.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/457f2fe9-91fb-4f7c-9c8d-8ebdb7d3c331.jpg",
+      "AssetFile": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\457f2fe9-91fb-4f7c-9c8d-8ebdb7d3c331.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5468"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 10:18:13 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/5547e3e4-2124-4b77-b8d6-439ef58af52b.954d5nolbc.pdf",
+      "AssetFile": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\5547e3e4-2124-4b77-b8d6-439ef58af52b.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13264"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"PfedNKu8qZMI55y5RGHBiTWCYE1oMppB/UvsGIXmrbQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 09:29:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "954d5nolbc"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/5547e3e4-2124-4b77-b8d6-439ef58af52b.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-PfedNKu8qZMI55y5RGHBiTWCYE1oMppB/UvsGIXmrbQ="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/5547e3e4-2124-4b77-b8d6-439ef58af52b.pdf",
+      "AssetFile": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\5547e3e4-2124-4b77-b8d6-439ef58af52b.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13264"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"PfedNKu8qZMI55y5RGHBiTWCYE1oMppB/UvsGIXmrbQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 09:29:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-PfedNKu8qZMI55y5RGHBiTWCYE1oMppB/UvsGIXmrbQ="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/6d9283c2-1aa1-407f-a697-aedf556c5687.9prbt9m7t7.jpg",
+      "AssetFile": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\6d9283c2-1aa1-407f-a697-aedf556c5687.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5468"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 10:35:54 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "9prbt9m7t7"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/6d9283c2-1aa1-407f-a697-aedf556c5687.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/6d9283c2-1aa1-407f-a697-aedf556c5687.jpg",
+      "AssetFile": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\6d9283c2-1aa1-407f-a697-aedf556c5687.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5468"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 10:35:54 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/a4e0f83d-dabf-4eb8-be11-dd95eebe03e8.9prbt9m7t7.jpg",
+      "AssetFile": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\a4e0f83d-dabf-4eb8-be11-dd95eebe03e8.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5468"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 10:21:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "9prbt9m7t7"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/a4e0f83d-dabf-4eb8-be11-dd95eebe03e8.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/a4e0f83d-dabf-4eb8-be11-dd95eebe03e8.jpg",
+      "AssetFile": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\a4e0f83d-dabf-4eb8-be11-dd95eebe03e8.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5468"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 10:21:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/b956ab25-eb5c-4b3a-aebd-eb101d142d7b.9prbt9m7t7.jpg",
+      "AssetFile": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\b956ab25-eb5c-4b3a-aebd-eb101d142d7b.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5468"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 09:24:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "9prbt9m7t7"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/b956ab25-eb5c-4b3a-aebd-eb101d142d7b.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/b956ab25-eb5c-4b3a-aebd-eb101d142d7b.jpg",
+      "AssetFile": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\b956ab25-eb5c-4b3a-aebd-eb101d142d7b.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5468"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 09:24:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/c1440df2-d701-4dba-ac7b-cb772f425296.9prbt9m7t7.jpg",
+      "AssetFile": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\c1440df2-d701-4dba-ac7b-cb772f425296.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5468"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 10:40:12 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "9prbt9m7t7"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/c1440df2-d701-4dba-ac7b-cb772f425296.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/c1440df2-d701-4dba-ac7b-cb772f425296.jpg",
+      "AssetFile": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\c1440df2-d701-4dba-ac7b-cb772f425296.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5468"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 10:40:12 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/c39d47fb-2a58-4830-927a-53ca4f518c32.954d5nolbc.pdf",
+      "AssetFile": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\c39d47fb-2a58-4830-927a-53ca4f518c32.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13264"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"PfedNKu8qZMI55y5RGHBiTWCYE1oMppB/UvsGIXmrbQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 09:27:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "954d5nolbc"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/c39d47fb-2a58-4830-927a-53ca4f518c32.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-PfedNKu8qZMI55y5RGHBiTWCYE1oMppB/UvsGIXmrbQ="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/c39d47fb-2a58-4830-927a-53ca4f518c32.pdf",
+      "AssetFile": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\c39d47fb-2a58-4830-927a-53ca4f518c32.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13264"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"PfedNKu8qZMI55y5RGHBiTWCYE1oMppB/UvsGIXmrbQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 09:27:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-PfedNKu8qZMI55y5RGHBiTWCYE1oMppB/UvsGIXmrbQ="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/deb37ffa-6969-4e83-9bc8-6dfdfa5612f7.9prbt9m7t7.jpg",
+      "AssetFile": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\deb37ffa-6969-4e83-9bc8-6dfdfa5612f7.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5468"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 09:26:55 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "9prbt9m7t7"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/deb37ffa-6969-4e83-9bc8-6dfdfa5612f7.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/deb37ffa-6969-4e83-9bc8-6dfdfa5612f7.jpg",
+      "AssetFile": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\deb37ffa-6969-4e83-9bc8-6dfdfa5612f7.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5468"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 09:26:55 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo="
+        }
+      ]
+    }
+  ]
 }

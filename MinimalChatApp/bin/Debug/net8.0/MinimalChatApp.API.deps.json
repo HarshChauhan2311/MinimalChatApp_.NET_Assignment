@@ -17,7 +17,6 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.0",
           "MinimalChatApp.BAL": "1.0.0",
-          "MinimalChatApp.DAL": "1.0.0",
           "MinimalChatApp.DTO": "1.0.0",
           "MinimalChatApp.Entity": "1.0.0",
           "Swashbuckle.AspNetCore": "6.6.2"
@@ -1344,6 +1343,7 @@
       },
       "MinimalChatApp.DTO/1.0.0": {
         "dependencies": {
+          "Microsoft.AspNetCore.Http.Features": "2.3.0",
           "MinimalChatApp.Entity": "1.0.0"
         },
         "runtime": {

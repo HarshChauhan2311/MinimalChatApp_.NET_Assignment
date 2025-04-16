@@ -70,7 +70,7 @@ namespace MinimalChatApp.DAL.IRepositories
         /// <param name="groupId">The ID of the group to send the message to.</param>
         /// <param name="content">The content of the message.</param>
         /// <returns>The sent message entity if successful; otherwise, null.</returns>
-        Task<Message?> SendGroupMessageAsync(int senderId, int groupId, string content);
+        Task<Message?> SendGroupMessageAsync(int senderId, int groupId, string content, string? fileUrl, string? contentType);
 
         /// <summary>
         /// Retrieves messages from a group before a specified time, limited to a count and ordered by sort preference.

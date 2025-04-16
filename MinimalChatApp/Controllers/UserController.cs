@@ -24,8 +24,22 @@ namespace MinimalChatApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsersAsync()
         {
-            return await _authService.GetUsersAsync(User);
+            var response = await _authService.GetUsersAsync(User);
+
+            if (!response.IsSuccess)
+                return StatusCode(response.StatusCode, new { error = response.Error });
+
+            return Ok(new
+            {
+                users = response.Data.Select(user => new
+                {
+                    id = user.Id,
+                    name = user.Name,
+                    email = user.Email
+                })
+            });
         }
+
         #endregion
     }
 }

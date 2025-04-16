@@ -10,8 +10,8 @@ namespace MinimalChatApp.DAL.Data
     {
         public AutoMapperProfile()
         {
-            CreateMap<ApplicationUser, UserDto>();
-            CreateMap<UserDto, ApplicationUser>();
+            CreateMap<ApplicationUser, UserDTO>();
+            CreateMap<UserDTO, ApplicationUser>();
         }
     }
 }

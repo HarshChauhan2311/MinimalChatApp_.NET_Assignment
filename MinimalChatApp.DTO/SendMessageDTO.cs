@@ -4,9 +4,12 @@ namespace MinimalChatApp.DTO
 {
     public class SendMessageDto
     {
-        public string FromUser { get; set; }     // Sender's username
-        public string ToUser { get; set; }       // Receiver's username
-        public string Message { get; set; }      // Actual message content
+        public int Id { get; set; }
+        public int GroupId { get; set; }
+        public string SenderId { get; set; }
         public DateTime Timestamp { get; set; } = DateTime.UtcNow; // Optional: for logging/sorting
+
+
+
     }
 }

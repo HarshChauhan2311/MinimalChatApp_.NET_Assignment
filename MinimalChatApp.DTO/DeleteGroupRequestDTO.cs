@@ -9,5 +9,6 @@ namespace MinimalChatApp.DTO
 
         [Required]
         public string Name { get; set; } = string.Empty;
+
     }
 }

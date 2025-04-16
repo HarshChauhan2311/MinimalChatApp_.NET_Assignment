@@ -85,7 +85,7 @@ namespace MinimalChatApp.DAL.Repositories
 
         }
 
-        public async Task<Message?> SendGroupMessageAsync(int senderId, int groupId, string content)
+        public async Task<Message?> SendGroupMessageAsync(int senderId, int groupId, string content, string? fileUrl, string? contentType)
         {
 
 
@@ -94,7 +94,9 @@ namespace MinimalChatApp.DAL.Repositories
                 SenderId = senderId,
                 GroupId = groupId,
                 Content = content,
-                Timestamp = DateTime.UtcNow
+                FileUrl = fileUrl,
+                ContentType = contentType,
+                 Timestamp = DateTime.UtcNow
             };
             await _context.Messages.AddAsync(message);
             var saved = await _context.SaveChangesAsync() > 0;

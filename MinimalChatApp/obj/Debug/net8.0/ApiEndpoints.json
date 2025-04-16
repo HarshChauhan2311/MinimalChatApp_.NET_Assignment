@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "MinimalChatApp.Controllers.AuthController",
+    "Method": "Register",
+    "RelativePath": "api",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "MinimalChatApp.DTO.RegisterRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "MinimalChatApp.API.Controllers.ConversationController",
     "Method": "GetConversationHistoryAsync",
     "RelativePath": "api/Conversation/Search",
@@ -107,9 +123,19 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
-        "Type": "MinimalChatApp.DTO.SendGroupMessageRequestDTO",
-        "IsRequired": true
+        "Name": "GroupId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Content",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Attachment",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -123,22 +149,53 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "groupId",
+        "Name": "GroupId",
         "Type": "System.Int32",
         "IsRequired": false
       },
       {
-        "Name": "before",
+        "Name": "Before",
         "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       },
       {
-        "Name": "count",
+        "Name": "Count",
         "Type": "System.Int32",
         "IsRequired": false
       },
       {
-        "Name": "sort",
+        "Name": "Sort",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MinimalChatApp.API.Controllers.GroupMessagesController",
+    "Method": "GetGroupConversationHistory",
+    "RelativePath": "api/GroupMessages/GroupHistory",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "GroupId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Before",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Count",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Sort",
         "Type": "System.String",
         "IsRequired": false
       }
@@ -200,22 +257,6 @@
   },
   {
     "ContainingType": "MinimalChatApp.API.Controllers.MemberController",
-    "Method": "UpdateMemberAccessAsync",
-    "RelativePath": "api/Member",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "MinimalChatApp.DTO.UpdateMemberAccessRequestDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MinimalChatApp.API.Controllers.MemberController",
     "Method": "RemoveMemberAsync",
     "RelativePath": "api/Member",
     "HttpMethod": "DELETE",
@@ -255,24 +296,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "userId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "before",
-        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "count",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "sort",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "request",
+        "Type": "MinimalChatApp.DTO.PersonalChatHistoryRequestDTO",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -309,22 +335,6 @@
       {
         "Name": "messageId",
         "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MinimalChatApp.Controllers.MessagesController",
-    "Method": "SendRealtimeMessageAsync",
-    "RelativePath": "api/Messages/send",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "MinimalChatApp.DTO.SendMessageDto",
         "IsRequired": true
       }
     ],

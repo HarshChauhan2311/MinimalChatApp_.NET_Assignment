@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MinimalChatApp.DTO;
 using MinimalChatApp.Entity;
 
 namespace MinimalChatApp.DAL.IRepositories
@@ -18,7 +19,7 @@ namespace MinimalChatApp.DAL.IRepositories
         /// <param name="userId">The ID of the user to add.</param>
         /// <param name="groupId">The ID of the group to add the user to.</param>
         /// <returns>The added group member entity.</returns>
-        Task<GroupMember?> AddMemberAsync(int userId, int groupId);
+        Task<AddMemberResponseDTO> AddMemberAsync(AddMemberRequestDTO request);
 
         /// <summary>
         /// Checks if a user is already a member of a group.
@@ -35,20 +36,12 @@ namespace MinimalChatApp.DAL.IRepositories
         /// <returns>The group member entity if found; otherwise, null.</returns>
         Task<GroupMember?> GetByGroupMemberIdAsync(int groupMemberId);
 
-        /// <summary>
-        /// Updates the access type and optionally the duration of access for a group member.
-        /// </summary>
-        /// <param name="member">The group member to update.</param>
-        /// <param name="accessType">The new access type.</param>
-        /// <param name="days">Optional number of days for temporary access.</param>
-        /// <returns>The updated group member entity.</returns>
-        Task<GroupMember?> UpdateAccessAsync(GroupMember member, GroupAccessType accessType, int? days);
 
         /// <summary>
         /// Removes a member from a group.
         /// </summary>
         /// <param name="member">The group member to remove.</param>
         /// <returns>True if the member was removed successfully; otherwise, false.</returns>
-        Task<bool> RemoveMemberAsync(GroupMember member);
+        Task<RemoveMemberResponseDTO> RemoveMemberAsync(GroupMember member);
     }
 }

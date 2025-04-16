@@ -1,4 +1,5 @@
-﻿using MinimalChatApp.Entity;
+﻿using MinimalChatApp.DTO;
+using MinimalChatApp.Entity;
 
 namespace MinimalChatApp.DAL.IRepositories
 {
@@ -12,7 +13,7 @@ namespace MinimalChatApp.DAL.IRepositories
         /// </summary>
         /// <param name="name">The name of the group.</param>
         /// <returns>The group entity if found; otherwise, null.</returns>
-        Task<Group?> GetByNameAsync(string name);
+        Task<GroupResponseDTO?> GetByNameAsync(string name);
 
         /// <summary>
         /// Retrieves a group by its ID.
@@ -26,7 +27,7 @@ namespace MinimalChatApp.DAL.IRepositories
         /// </summary>
         /// <param name="groupId">The ID of the group.</param>
         /// <returns>The group entity if found; otherwise, null.</returns>
-        Task<Group?> GetGroupByIdAsync(int groupId);
+        Task<GroupResponseDTO?> GetGroupByIdAsync(int groupId);
 
         /// <summary>
         /// Retrieves a group by both its ID and name.
@@ -50,7 +51,7 @@ namespace MinimalChatApp.DAL.IRepositories
         /// <param name="groupName">The name of the group to create.</param>
         /// <param name="userId">The ID of the user creating the group.</param>
         /// <returns>The created group entity.</returns>
-        Task<Group?> CreateGroupAsync(string groupName, int userId);
+        Task<GroupResponseDTO?> CreateGroupAsync(string groupName, int userId);
 
         /// <summary>
         /// Updates the name of an existing group.
@@ -58,14 +59,14 @@ namespace MinimalChatApp.DAL.IRepositories
         /// <param name="group">The group to update.</param>
         /// <param name="newName">The new name for the group.</param>
         /// <returns>The updated group entity.</returns>
-        Task<Group?> UpdateGroupNameAsync(Group group, string newName);
+        Task<GroupResponseDTO?> UpdateGroupNameAsync(Group group, string newName);
 
         /// <summary>
         /// Deletes a group.
         /// </summary>
         /// <param name="group">The group to delete.</param>
         /// <returns>True if the group was deleted successfully; otherwise, false.</returns>
-        Task<bool> DeleteGroupAsync(Group group);
+        Task<GroupResponseDTO> DeleteGroupAsync(Group group);
 
         /// <summary>
         /// Checks if a group exists by its ID.
@@ -87,7 +88,7 @@ namespace MinimalChatApp.DAL.IRepositories
         /// </summary>
         /// <param name="userId">The ID of the user.</param>
         /// <returns>A list of groups with their members.</returns>
-        Task<List<Group>> GetAllGroupsWithMembersAsync(int userId);
+        Task<List<GroupResponseDTO>> GetAllGroupsWithMembersAsync(int userId);
     }
 
 }

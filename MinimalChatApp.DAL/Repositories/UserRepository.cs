@@ -28,12 +28,12 @@ namespace MinimalChatApp.DAL.Repositories
         #endregion
 
         #region Public methods
-        public async Task<UserDto?> GetByIdAsync(int userId)
+        public async Task<UserDTO?> GetByIdAsync(int userId)
         {
             //var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
-            //return user != null ? _mapper.Map<UserDto>(user) : null;
+            //return user != null ? _mapper.Map<UserDTO>(user) : null;
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
-            return user != null ? _mapper.Map<UserDto>(user) : null;
+            return user != null ? _mapper.Map<UserDTO>(user) : null;
 
 
         }
@@ -53,17 +53,31 @@ namespace MinimalChatApp.DAL.Repositories
             return await _context.SaveChangesAsync() > 0;
 
         }
-        public async Task<List<UserDto>> GetOtherUsersAsync(string currentUserEmail)
+        public async Task<List<UserDTO>> GetOtherUsersAsync(string currentUserEmail)
         {
             return await _context.Users
                 .Where(u => !u.Email.ToLower().Equals(currentUserEmail.ToLower()))
-                .Select(u => new UserDto
+                .Select(u => new UserDTO
                 {
                     Id = u.Id,
                     Name = u.Name,
                     Email = u.Email
                 })
                 .ToListAsync();
+        }
+
+        public async Task<UserDTO> GetUserDetailByEmailAsync(string email)
+        {
+            return await _context.Users
+                 .Where(u => u.Email.ToLower() == email.ToLower())
+                 .Select(u => new UserDTO
+                 {
+                     Id = u.Id,
+                     Name = u.Name,
+                     Email = u.Email
+                 })
+                 .FirstOrDefaultAsync();
+
         }
 
         #endregion

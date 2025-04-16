@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MinimalChatApp.DTO")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+74fb71394969f9a05a011a4774ca7d1e2485fbf8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+af3a991cc16ea38e44e6412f6c203d02c6e8f764")]
 [assembly: System.Reflection.AssemblyProductAttribute("MinimalChatApp.DTO")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MinimalChatApp.DTO")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

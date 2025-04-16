@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Azure.Core;
 using Microsoft.EntityFrameworkCore;
 using MinimalChatApp.DAL.Data;
 using MinimalChatApp.DAL.IRepositories;
+using MinimalChatApp.DTO;
 using MinimalChatApp.Entity;
 
 namespace MinimalChatApp.DAL.Repositories
@@ -26,21 +28,61 @@ namespace MinimalChatApp.DAL.Repositories
 
         }
 
-        public async Task<GroupMember?> AddMemberAsync(int userId, int groupId)
+        public async Task<AddMemberResponseDTO> AddMemberAsync(AddMemberRequestDTO request)
         {
-
-            var member = new GroupMember
+            try
             {
-                UserId = userId,
-                GroupId = groupId
-            };
+                // Validate request data (e.g., check if UserId and GroupId are valid)
+                if (request.UserId <= 0 || request.GroupId <= 0)
+                {
+                    return new AddMemberResponseDTO
+                    {
+                        Message = "Invalid user or group ID."
+                    };
+                }
 
-            await _context.GroupMembers.AddAsync(member);
-            var saved = await _context.SaveChangesAsync() > 0;
+                // Create the new member object
+                var member = new GroupMember
+                {
+                    UserId = request.UserId,
+                    GroupId = request.GroupId,
+                    AccessType = request.AccessType,
+                    Days = request.AccessType == GroupAccessType.Days ? request.Days : null
+                };
 
-            return saved ? member : null;
+                // Add the new member to the GroupMembers table
+                await _context.GroupMembers.AddAsync(member);
+                var saved = await _context.SaveChangesAsync() > 0;
 
+                // Return a well-structured response
+                if (saved)
+                {
+                    return new AddMemberResponseDTO
+                    {
+                        Id = member.Id,
+                        UserId = member.UserId,
+                        GroupId = member.GroupId,
+                        Message = "Member added successfully."
+                    };
+                }
+                else
+                {
+                    return new AddMemberResponseDTO
+                    {
+                        Message = "Failed to add member."
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (you may want to add a logging mechanism here)
+                return new AddMemberResponseDTO
+                {
+                    Message = $"An error occurred: {ex.Message}"
+                };
+            }
         }
+
 
         public async Task<GroupMember?> GetByGroupMemberIdAsync(int groupMemberId)
         {
@@ -49,23 +91,29 @@ namespace MinimalChatApp.DAL.Repositories
 
         }
 
-        public async Task<GroupMember?> UpdateAccessAsync(GroupMember member, GroupAccessType accessType, int? days)
+        public async Task<RemoveMemberResponseDTO> RemoveMemberAsync(GroupMember member)
         {
+            var response = new RemoveMemberResponseDTO();
 
-            member.AccessType = accessType;
-            member.Days = accessType == GroupAccessType.Days ? days : null;
-
-            var saved = await _context.SaveChangesAsync() > 0;
-            return saved ? member : null;
-
-        }
-
-        public async Task<bool> RemoveMemberAsync(GroupMember member)
-        {
-
+            // Try to remove the member from the group
             _context.GroupMembers.Remove(member);
-            return await _context.SaveChangesAsync() > 0;
+            var result = await _context.SaveChangesAsync();
 
+            // Check if the deletion was successful
+            if (result > 0)
+            {
+                response.Message = "Member deleted successfully.";
+                response.IsSuccess = true;
+            }
+            else
+            {
+                response.Message = "Failed to delete member.";
+                response.IsSuccess = false;
+            }
+
+            return response;
         }
+
+
     }
 }

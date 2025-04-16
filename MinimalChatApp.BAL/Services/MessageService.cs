@@ -21,201 +21,280 @@ namespace MinimalChatApp.BAL.Services
             _errorLogger = errorLogger;
         }
 
-        public async Task<object> SendMessageAsync(int senderId, MessageRequestDTO request)
+        public async Task<ServiceResponseDTO<SentMessageDTO>> SendMessageAsync(int senderId, MessageRequestDTO request)
         {
             var receiver = await _userRepo.GetByIdAsync(request.ReceiverId);
             if (receiver == null)
-                return new { error = "Receiver not found." };
+            {
+                return new ServiceResponseDTO<SentMessageDTO>
+                {
+                    IsSuccess = false,
+                    Error = "Receiver not found.",
+                    StatusCode = 404
+                };
+            }
 
             try
             {
                 var message = await _messageRepo.SendMessageAsync(senderId, request.ReceiverId, request.Content);
-                if (message == null)
-                    return new { error = "Message sending failed due to validation errors" };
 
-                return new
+                if (message == null)
                 {
-                    messageId = message.Id,
-                    senderId = message.SenderId,
-                    receiverId = message.ReceiverId,
-                    content = message.Content,
-                    timestamp = message.Timestamp
+                    return new ServiceResponseDTO<SentMessageDTO>
+                    {
+                        IsSuccess = false,
+                        Error = "Message sending failed.",
+                        StatusCode = 400
+                    };
+                }
+
+                var messageDto = new SentMessageDTO
+                {
+                    MessageId = message.Id,
+                    SenderId = message.SenderId,
+                    ReceiverId = message.ReceiverId,
+                    Content = message.Content,
+                    Timestamp = message.Timestamp
+                };
+
+                return new ServiceResponseDTO<SentMessageDTO>
+                {
+                    IsSuccess = true,
+                    Data = messageDto,
+                    StatusCode = 200
                 };
             }
             catch (Exception ex)
             {
                 await _errorLogger.LogAsync(ex);
-                return new { error = ex.Message };
+                return new ServiceResponseDTO<SentMessageDTO>
+                {
+                    IsSuccess = false,
+                    Error = ex.Message,
+                    StatusCode = 500
+                };
             }
         }
 
-        public async Task<(bool isSuccess, string? error, string? message, int statusCode)> EditMessageAsync(int userId, int messageId, EditMessageRequestDTO request)
+
+
+        public async Task<ServiceResponseDTO<string>> EditMessageAsync(int userId, int messageId, EditMessageRequestDTO request)
         {
             var message = await _messageRepo.GetByIdAsync(messageId);
             if (message == null)
-                return (false, "Message not found.", null, 404);
+                return new ServiceResponseDTO<string> { IsSuccess = false, Error = "Message not found.", StatusCode = 404 };
 
             if (message.SenderId != userId)
-                return (false, "Unauthorized access.", null, 401);
+                return new ServiceResponseDTO<string> { IsSuccess = false, Error = "Unauthorized access.", StatusCode = 401 };
 
             try
             {
                 message.Content = request.Content;
                 await _messageRepo.UpdateAsync(message);
 
-                return (true, null, "Message edited successfully.", 200);
+                return new ServiceResponseDTO<string> { IsSuccess = true, Data = "Message edited successfully.", StatusCode = 200 };
             }
             catch (Exception ex)
             {
                 await _errorLogger.LogAsync(ex);
-                return (false, "Internal server error: " + ex.Message, null, 400);
+                return new ServiceResponseDTO<string> { IsSuccess = false, Error = ex.Message, StatusCode = 500 };
             }
         }
 
-        public async Task<(bool isSuccess, string? error, string? message, int statusCode)> DeleteMessageAsync(int userId, int messageId)
+        public async Task<ServiceResponseDTO<string>> DeleteMessageAsync(int userId, int messageId)
         {
             var message = await _messageRepo.GetByIdAsync(messageId);
             if (message == null)
-                return (false, "Message not found.", null, 404);
+                return new ServiceResponseDTO<string> { IsSuccess = false, Error = "Message not found.", StatusCode = 404 };
 
             if (message.SenderId != userId)
-                return (false, "Unauthorized access.", null, 401);
+                return new ServiceResponseDTO<string> { IsSuccess = false, Error = "Unauthorized access.", StatusCode = 401 };
 
             try
             {
                 await _messageRepo.DeleteAsync(message);
-                return (true, null, "Message deleted successfully.", 200);
-
+                return new ServiceResponseDTO<string> { IsSuccess = true, Data = "Message deleted successfully.", StatusCode = 200 };
             }
             catch (Exception ex)
             {
                 await _errorLogger.LogAsync(ex);
-                return (false, "Internal server error: " + ex.Message, null, 400);
+                return new ServiceResponseDTO<string> { IsSuccess = false, Error = ex.Message, StatusCode = 500 };
             }
         }
 
-        public async Task<object> GetConversationHistoryAsync(int userId, int otherUserId, DateTime? before, int count, string sort)
-        {
-            var timestamp = before ?? DateTime.UtcNow;
 
+        public async Task<ServiceResponseDTO<List<ConversationMessageDTO>>> GetConversationHistoryAsync(int userId, int otherUserId, DateTime? before, int count, string sort)
+        {
             try
             {
+                var timestamp = before ?? DateTime.UtcNow;
                 var messages = await _messageRepo.GetConversationAsync(userId, otherUserId, timestamp, count, sort.ToLower());
-                if (messages == null || !messages.Any())
-                    return new { error = "No conversation history found." };
 
-                return new
+                if (messages == null || !messages.Any())
+                    return new ServiceResponseDTO<List<ConversationMessageDTO>> { IsSuccess = false, Error = "No conversation history found.", StatusCode = 404 };
+
+                var response = messages.Select(m => new ConversationMessageDTO
                 {
-                    messages = messages.Select(m => new
-                    {
-                        id = m.Id,
-                        senderId = m.SenderId,
-                        receiverId = m.ReceiverId,
-                        content = m.Content,
-                        timestamp = m.Timestamp
-                    })
-                };
+                    MessageId =  m.Id,
+                    SenderId = m.SenderId,
+                    ReceiverId = m.ReceiverId,
+                    Content = m.Content,
+                    Timestamp = m.Timestamp
+                }).ToList();
+
+                return new ServiceResponseDTO<List<ConversationMessageDTO>> { IsSuccess = true, Data = response, StatusCode = 200 };
             }
             catch (Exception ex)
             {
                 await _errorLogger.LogAsync(ex);
-                return new { error = ex.Message };
+                return new ServiceResponseDTO<List<ConversationMessageDTO>> { IsSuccess = false, Error = ex.Message, StatusCode = 500 };
             }
         }
 
-        public async Task<object> SearchConversationsAsync(int userId, string query)
+        public async Task<ServiceResponseDTO<List<ConversationMessageDTO>>> SearchConversationsAsync(int userId, string query)
         {
             try
             {
                 var messages = await _messageRepo.SearchMessagesAsync(userId, query);
-                return new
+                var response = messages.Select(m => new ConversationMessageDTO
                 {
-                    messages = messages.Select(m => new
+                    MessageId = m.Id,
+                    SenderId = m.SenderId,
+                    ReceiverId = m.ReceiverId,
+                    Content = m.Content,
+                    Timestamp = m.Timestamp
+                }).ToList();
+
+                return new ServiceResponseDTO<List<ConversationMessageDTO>> { IsSuccess = true, Data = response, StatusCode = 200 };
+            }
+            catch (Exception ex)
+            {
+                await _errorLogger.LogAsync(ex);
+                return new ServiceResponseDTO<List<ConversationMessageDTO>> { IsSuccess = false, Error = ex.Message, StatusCode = 500 };
+            }
+        }
+
+        public async Task<ServiceResponseDTO<MessageDTO>> SendGroupMessageAsync(int senderId, int groupId, string content, string? fileUrl, string? contentType)
+        {
+            if (string.IsNullOrWhiteSpace(content))
+                return new ServiceResponseDTO<MessageDTO>
+                {
+                    IsSuccess = false,
+                    Error = "Message content cannot be empty.",
+                    StatusCode = 400
+                };
+
+            try
+            {
+                var message = await _messageRepo.SendGroupMessageAsync(senderId, groupId, content, fileUrl, contentType);
+
+                if (message == null)
+                {
+                    return new ServiceResponseDTO<MessageDTO>
                     {
-                        id = m.Id,
-                        senderId = m.SenderId,
-                        receiverId = m.ReceiverId,
-                        content = m.Content,
-                        timestamp = m.Timestamp
-                    })
+                        IsSuccess = false,
+                        Error = "Failed to send message.",
+                        StatusCode = 500
+                    };
+                }
+
+                var messageDto = new MessageDTO
+                {
+                    MessageId = message.Id,
+                    SenderId = message.SenderId,
+                    GroupId = message.GroupId,
+                    Content = message.Content,
+                    FileUrl = message.FileUrl,
+                    ContentType = message.ContentType,
+                    Timestamp = message.Timestamp
+                };
+
+                return new ServiceResponseDTO<MessageDTO>
+                {
+                    IsSuccess = true,
+                    Data = messageDto,
+                    StatusCode = 200
                 };
             }
             catch (Exception ex)
             {
                 await _errorLogger.LogAsync(ex);
-                return new { error = ex.Message };
+                return new ServiceResponseDTO<MessageDTO>
+                {
+                    IsSuccess = false,
+                    Error = ex.Message,
+                    StatusCode = 500
+                };
             }
         }
 
-        public async Task<(bool isSuccess, string? error, Message? message)> SendGroupMessageAsync(int senderId, int groupId, string content)
-        {
-            if (string.IsNullOrWhiteSpace(content))
-                return (false, "Message content cannot be empty.", null);
 
-            try
-            {
-                var message = await _messageRepo.SendGroupMessageAsync(senderId, groupId, content);
-
-            return message != null
-                ? (true, null, message)
-                : (false, "Failed to send message.", null);
-            }
-            catch (Exception ex)
-            {
-                await _errorLogger.LogAsync(ex);
-                return (false, $"Internal server error: {ex.Message}", null);
-            }
-        }
-
-        public async Task<(bool isSuccess, string? error, List<Message>? messages, int statusCode)> GetGroupMessagesAsync(int userId, int groupId, DateTime before, int count, string sort)
+        public async Task<ServiceResponseDTO<List<MessageDTO>>> GetGroupMessagesAsync(int userId, int groupId, DateTime before, int count, string sort)
         {
             if (!await _groupRepo.GroupExistsAsync(groupId))
-                return (false, "Group not found.", null, 404);
+                return new ServiceResponseDTO<List<MessageDTO>> { IsSuccess = false, Error = "Group not found.", StatusCode = 404 };
 
             if (!await _groupRepo.IsUserGroupMemberAsync(userId, groupId))
-                return (false, "Unauthorized access.", null, 401);
+                return new ServiceResponseDTO<List<MessageDTO>> { IsSuccess = false, Error = "Unauthorized access.", StatusCode = 401 };
 
             try
             {
                 var messages = await _messageRepo.GetGroupMessagesAsync(groupId, before, count, sort);
                 if (messages == null || !messages.Any())
-                    return (false, "No messages found.", null, 404);
+                    return new ServiceResponseDTO<List<MessageDTO>> { IsSuccess = false, Error = "No messages found.", StatusCode = 404 };
 
-                return (true, null, messages, 200);
+                var messageDtos = messages.Select(m => new MessageDTO
+                {
+                    MessageId = m.Id,
+                    SenderId = m.SenderId,
+                    GroupId = m.GroupId,
+                    Content = m.Content,
+                    FileUrl = m.FileUrl,
+                    ContentType = m.ContentType,
+                    Timestamp = m.Timestamp
+                }).ToList();
+
+                return new ServiceResponseDTO<List<MessageDTO>> { IsSuccess = true, Data = messageDtos, StatusCode = 200 };
             }
             catch (Exception ex)
             {
                 await _errorLogger.LogAsync(ex);
-                return (false, $"Internal server error: {ex.Message}", null, 500);
+                return new ServiceResponseDTO<List<MessageDTO>> { IsSuccess = false, Error = ex.Message, StatusCode = 500 };
             }
         }
 
-        public async Task<(bool isSuccess, string? error, List<Message>? messages, int statusCode)> SearchGroupMessagesAsync(int userId, int groupId, string keyword)
+        public async Task<ServiceResponseDTO<List<MessageDTO>>> SearchGroupMessagesAsync(int userId, int groupId, string keyword)
         {
             if (string.IsNullOrWhiteSpace(keyword))
-                return (false, "Search keyword cannot be empty.", null, 400);
+                return new ServiceResponseDTO<List<MessageDTO>> { IsSuccess = false, Error = "Search keyword cannot be empty.", StatusCode = 400 };
 
-            var groupExists = await _groupRepo.GroupExistsAsync(groupId);
-            if (!groupExists)
-                return (false, "Group not found.", null, 404);
+            if (!await _groupRepo.GroupExistsAsync(groupId))
+                return new ServiceResponseDTO<List<MessageDTO>> { IsSuccess = false, Error = "Group not found.", StatusCode = 404 };
 
-            var isMember = await _groupRepo.IsUserGroupMemberAsync(userId, groupId);
-            if (!isMember)
-                return (false, "Unauthorized access.", null, 401);
+            if (!await _groupRepo.IsUserGroupMemberAsync(userId, groupId))
+                return new ServiceResponseDTO<List<MessageDTO>> { IsSuccess = false, Error = "Unauthorized access.", StatusCode = 401 };
 
             try
             {
                 var messages = await _messageRepo.SearchGroupMessagesAsync(groupId, userId, keyword);
-                return (true, null, messages, 200);
+                var messageDtos = messages.Select(m => new MessageDTO
+                {
+                    MessageId = m.Id,
+                    SenderId = m.SenderId,
+                    GroupId = m.GroupId,
+                    Content = m.Content,
+                    FileUrl = m.FileUrl,
+                    ContentType = m.ContentType,
+                    Timestamp = m.Timestamp
+                }).ToList();
+
+                return new ServiceResponseDTO<List<MessageDTO>> { IsSuccess = true, Data = messageDtos, StatusCode = 200 };
             }
             catch (Exception ex)
             {
                 await _errorLogger.LogAsync(ex);
-                return (false, $"Internal server error: {ex.Message}", null, 500);
+                return new ServiceResponseDTO<List<MessageDTO>> { IsSuccess = false, Error = ex.Message, StatusCode = 500 };
             }
         }
-
-
-
     }
 }

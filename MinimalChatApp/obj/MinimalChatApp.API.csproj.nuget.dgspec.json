@@ -320,6 +320,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[2.3.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -441,9 +447,6 @@
             "projectReferences": {
               "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp.BAL\\MinimalChatApp.BAL.csproj": {
                 "projectPath": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp.BAL\\MinimalChatApp.BAL.csproj"
-              },
-              "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp.DAL\\MinimalChatApp.DAL.csproj": {
-                "projectPath": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp.DAL\\MinimalChatApp.DAL.csproj"
               },
               "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp.DTO\\MinimalChatApp.DTO.csproj": {
                 "projectPath": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp.DTO\\MinimalChatApp.DTO.csproj"

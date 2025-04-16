@@ -165,3 +165,4 @@ C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\refint\MinimalC
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.pdb
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\MinimalChatApp.API.genruntimeconfig.cache
 C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\obj\Debug\net8.0\ref\MinimalChatApp.API.dll
+C:\Harsh_Chauhan\.NET_Assignment\MinimalChatApp\bin\Debug\net8.0\MinimalChatApp.API.staticwebassets.runtime.json
