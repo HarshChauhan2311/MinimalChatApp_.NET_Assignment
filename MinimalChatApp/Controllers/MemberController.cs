@@ -50,14 +50,8 @@ namespace MinimalChatApp.API.Controllers
                 GroupId = response.Data.GroupId
             };
 
-            var finalResponse = new ServiceResponseDTO<AddMemberResponseDTO>
-            {
-                IsSuccess = true,
-                Data = res,
-                StatusCode = 200
-            };
 
-            return Ok(finalResponse);
+            return Ok(res);
           
         }
 
@@ -74,7 +68,7 @@ namespace MinimalChatApp.API.Controllers
             if (!response.IsSuccess)
                 return StatusCode(response.StatusCode, new { error = response.Error });
 
-            return Ok(response); // contains IsSuccess, Message, StatusCode
+            return Ok(response.Data); // contains IsSuccess, Message, StatusCode
         }
 
         #endregion

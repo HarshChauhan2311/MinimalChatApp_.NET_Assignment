@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace MinimalChatApp.DTO
@@ -11,6 +12,8 @@ namespace MinimalChatApp.DTO
         public int Id { get; set; }
         public int UserId { get; set; }
         public int GroupId { get; set; }
+
+        [JsonIgnore]
         public string Message { get; set; }
     }
 }

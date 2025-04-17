@@ -314,51 +314,6 @@
         }
       }
     },
-    "/api/GroupMessages/GroupHistory": {
-      "get": {
-        "tags": [
-          "GroupMessages"
-        ],
-        "parameters": [
-          {
-            "name": "GroupId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Before",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          },
-          {
-            "name": "Count",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Sort",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/log": {
       "get": {
         "tags": [

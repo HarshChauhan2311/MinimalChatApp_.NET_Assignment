@@ -102,10 +102,15 @@ namespace MinimalChatApp.DAL.Repositories
 
             name = name.Trim().ToLower();
 
-            return await _context.Groups
+            var group = await _context.Groups
                 .AnyAsync(g =>
                     g.GroupName.ToLower().Trim() == name &&
                     (!excludeGroupId.HasValue || g.GroupId != excludeGroupId));
+
+            
+
+            return group;
+
 
         }
 
@@ -141,32 +146,41 @@ namespace MinimalChatApp.DAL.Repositories
 
         public async Task<GroupResponseDTO?> UpdateGroupNameAsync(Group group, string newName)
         {
-            var existingGroup = await _context.Groups.AsNoTracking()
+            try
+            {
+                var existingGroup = await _context.Groups
        .Include(g => g.Members) // Assuming you have navigation property for Members
        .FirstOrDefaultAsync(g => g.GroupId == group.GroupId);
 
-            if (existingGroup == null)
-                return null;
+                if (existingGroup == null)
+                    return null;
 
-            existingGroup.GroupName = newName;
+                existingGroup.GroupName = newName;
 
-            _genericGroupRepo.Update(existingGroup);
-            var saved = await _genericGroupRepo.SaveChangesAsync();
+                _genericGroupRepo.Update(existingGroup);
+                var saved = await _genericGroupRepo.SaveChangesAsync();
 
-            if (!saved)
-                return null;
+                if (!saved)
+                    return null;
 
-            return new GroupResponseDTO
+                return new GroupResponseDTO
+                {
+                    Id = existingGroup.GroupId,
+                    Name = existingGroup.GroupName,
+                };
+            }
+            catch (Exception ex)
             {
-                Id = existingGroup.GroupId,
-                Name = existingGroup.GroupName,
-            };
+                // Log error here - use ILogger or any logger you have
+                Console.WriteLine($"Error in UpdateGroupNameAsync: {ex.Message}");
+                throw; // Rethrow to be caught by middleware (or handle gracefully)
+            }
 
         }
 
         public async Task<GroupResponseDTO> DeleteGroupAsync(Group group)
         {
-            var existingGroup = await _context.Groups.AsNoTracking()
+            var existingGroup = await _context.Groups
                     .Include(g => g.Members) // if applicable
                     .FirstOrDefaultAsync(g => g.GroupId == group.GroupId);
 

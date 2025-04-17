@@ -172,37 +172,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "MinimalChatApp.API.Controllers.GroupMessagesController",
-    "Method": "GetGroupConversationHistory",
-    "RelativePath": "api/GroupMessages/GroupHistory",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "GroupId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "Before",
-        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "Count",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "Sort",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "MinimalChatApp.Controllers.LogController",
     "Method": "GetLogsAsync",
     "RelativePath": "api/log",

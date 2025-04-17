@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MinimalChatApp.BAL.IServices;
 using MinimalChatApp.DTO;
+using MinimalChatApp.Entity;
 
 
 namespace MinimalChatApp.Controllers
@@ -34,7 +35,9 @@ namespace MinimalChatApp.Controllers
                 return Unauthorized(new { error = "Unauthorized access." });
 
             var groups = await _groupService.GetAllGroupsAsync(userId);
-            return Ok(groups);
+
+
+            return Ok(groups.Data);
         }
 
         [HttpPost]

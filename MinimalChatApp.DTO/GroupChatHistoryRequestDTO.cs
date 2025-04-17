@@ -8,6 +8,7 @@ namespace MinimalChatApp.DTO
 {
     public class GroupChatHistoryRequestDTO
     {
+
         public int GroupId { get; set; }
         public DateTime? Before { get; set; }
         public int Count { get; set; } = 20;

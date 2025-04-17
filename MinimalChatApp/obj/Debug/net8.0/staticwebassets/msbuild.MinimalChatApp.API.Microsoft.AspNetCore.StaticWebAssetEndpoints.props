@@ -1,5 +1,17 @@
 ﻿<Project>
   <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/MinimalChatApp.API/uploads/08cf86a7-7e78-4f6e-997d-5fa9810c1090.954d5nolbc.pdf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\08cf86a7-7e78-4f6e-997d-5fa9810c1090.pdf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"954d5nolbc"},{"Name":"integrity","Value":"sha256-PfedNKu8qZMI55y5RGHBiTWCYE1oMppB/UvsGIXmrbQ="},{"Name":"label","Value":"_content/MinimalChatApp.API/uploads/08cf86a7-7e78-4f6e-997d-5fa9810c1090.pdf"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"13264"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022PfedNKu8qZMI55y5RGHBiTWCYE1oMppB/UvsGIXmrbQ=\u0022"},{"Name":"Last-Modified","Value":"Thu, 17 Apr 2025 08:00:46 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/MinimalChatApp.API/uploads/08cf86a7-7e78-4f6e-997d-5fa9810c1090.pdf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\08cf86a7-7e78-4f6e-997d-5fa9810c1090.pdf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-PfedNKu8qZMI55y5RGHBiTWCYE1oMppB/UvsGIXmrbQ="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"13264"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022PfedNKu8qZMI55y5RGHBiTWCYE1oMppB/UvsGIXmrbQ=\u0022"},{"Name":"Last-Modified","Value":"Thu, 17 Apr 2025 08:00:46 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/MinimalChatApp.API/uploads/457f2fe9-91fb-4f7c-9c8d-8ebdb7d3c331.9prbt9m7t7.jpg">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\457f2fe9-91fb-4f7c-9c8d-8ebdb7d3c331.jpg'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
@@ -48,6 +60,18 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"5468"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 10:21:23 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/MinimalChatApp.API/uploads/b913ccfc-2239-4448-956c-2db3ffb591be.kgcvfnc16a.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\b913ccfc-2239-4448-956c-2db3ffb591be.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"kgcvfnc16a"},{"Name":"integrity","Value":"sha256-LIRTod17Zvz5my9cfMJ5f69jxQd/JABj2l8zoZDLnXQ="},{"Name":"label","Value":"_content/MinimalChatApp.API/uploads/b913ccfc-2239-4448-956c-2db3ffb591be.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"825496"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022LIRTod17Zvz5my9cfMJ5f69jxQd/JABj2l8zoZDLnXQ=\u0022"},{"Name":"Last-Modified","Value":"Thu, 17 Apr 2025 08:01:16 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/MinimalChatApp.API/uploads/b913ccfc-2239-4448-956c-2db3ffb591be.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\b913ccfc-2239-4448-956c-2db3ffb591be.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-LIRTod17Zvz5my9cfMJ5f69jxQd/JABj2l8zoZDLnXQ="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"825496"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022LIRTod17Zvz5my9cfMJ5f69jxQd/JABj2l8zoZDLnXQ=\u0022"},{"Name":"Last-Modified","Value":"Thu, 17 Apr 2025 08:01:16 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/MinimalChatApp.API/uploads/b956ab25-eb5c-4b3a-aebd-eb101d142d7b.9prbt9m7t7.jpg">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\b956ab25-eb5c-4b3a-aebd-eb101d142d7b.jpg'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
@@ -71,6 +95,18 @@
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"5468"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022/YH3hBxmAY10RDcuf0TCAiwIwPDp3oOM7gZ4VZrs5bo=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 10:40:12 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/MinimalChatApp.API/uploads/c36c4c4e-3135-4077-b978-2d4d97123fc4.954d5nolbc.pdf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\c36c4c4e-3135-4077-b978-2d4d97123fc4.pdf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"954d5nolbc"},{"Name":"integrity","Value":"sha256-PfedNKu8qZMI55y5RGHBiTWCYE1oMppB/UvsGIXmrbQ="},{"Name":"label","Value":"_content/MinimalChatApp.API/uploads/c36c4c4e-3135-4077-b978-2d4d97123fc4.pdf"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"13264"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022PfedNKu8qZMI55y5RGHBiTWCYE1oMppB/UvsGIXmrbQ=\u0022"},{"Name":"Last-Modified","Value":"Thu, 17 Apr 2025 08:01:07 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/MinimalChatApp.API/uploads/c36c4c4e-3135-4077-b978-2d4d97123fc4.pdf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\c36c4c4e-3135-4077-b978-2d4d97123fc4.pdf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-PfedNKu8qZMI55y5RGHBiTWCYE1oMppB/UvsGIXmrbQ="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"13264"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022PfedNKu8qZMI55y5RGHBiTWCYE1oMppB/UvsGIXmrbQ=\u0022"},{"Name":"Last-Modified","Value":"Thu, 17 Apr 2025 08:01:07 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/MinimalChatApp.API/uploads/c39d47fb-2a58-4830-927a-53ca4f518c32.954d5nolbc.pdf">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\c39d47fb-2a58-4830-927a-53ca4f518c32.pdf'))</AssetFile>

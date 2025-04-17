@@ -83,8 +83,7 @@ namespace MinimalChatApp.API.Controllers
 
 
         [HttpGet]
-        [HttpGet("GroupHistory")]
-        public async Task<IActionResult> GetGroupConversationHistory([FromQuery] GroupChatHistoryRequestDTO request)
+        public async Task<IActionResult> GetGroupConversationHistory([FromBody] GroupChatHistoryRequestDTO request)
         {
             // Get userId from JWT token
             var userIdClaim = User.FindFirst("userId")?.Value;

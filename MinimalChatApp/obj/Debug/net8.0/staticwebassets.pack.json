@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\08cf86a7-7e78-4f6e-997d-5fa9810c1090.pdf",
+      "PackagePath": "staticwebassets\\uploads\\08cf86a7-7e78-4f6e-997d-5fa9810c1090.pdf"
+    },
+    {
       "Id": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\457f2fe9-91fb-4f7c-9c8d-8ebdb7d3c331.jpg",
       "PackagePath": "staticwebassets\\uploads\\457f2fe9-91fb-4f7c-9c8d-8ebdb7d3c331.jpg"
     },
@@ -17,12 +21,20 @@
       "PackagePath": "staticwebassets\\uploads\\a4e0f83d-dabf-4eb8-be11-dd95eebe03e8.jpg"
     },
     {
+      "Id": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\b913ccfc-2239-4448-956c-2db3ffb591be.png",
+      "PackagePath": "staticwebassets\\uploads\\b913ccfc-2239-4448-956c-2db3ffb591be.png"
+    },
+    {
       "Id": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\b956ab25-eb5c-4b3a-aebd-eb101d142d7b.jpg",
       "PackagePath": "staticwebassets\\uploads\\b956ab25-eb5c-4b3a-aebd-eb101d142d7b.jpg"
     },
     {
       "Id": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\c1440df2-d701-4dba-ac7b-cb772f425296.jpg",
       "PackagePath": "staticwebassets\\uploads\\c1440df2-d701-4dba-ac7b-cb772f425296.jpg"
+    },
+    {
+      "Id": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\c36c4c4e-3135-4077-b978-2d4d97123fc4.pdf",
+      "PackagePath": "staticwebassets\\uploads\\c36c4c4e-3135-4077-b978-2d4d97123fc4.pdf"
     },
     {
       "Id": "C:\\Harsh_Chauhan\\.NET_Assignment\\MinimalChatApp\\wwwroot\\uploads\\c39d47fb-2a58-4830-927a-53ca4f518c32.pdf",

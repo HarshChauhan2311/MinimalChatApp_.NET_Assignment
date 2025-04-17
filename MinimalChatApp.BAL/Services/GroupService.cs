@@ -52,8 +52,8 @@ namespace MinimalChatApp.BAL.Services
                 if (group == null)
                     return new ServiceResponseDTO<GroupResponseDTO> { IsSuccess = false, Error = "Group not found.", StatusCode = 404 };
 
-                var exists = await _groupRepo.GroupNameExistsAsync(newName, groupId);
-                if (exists)
+                var exists = await _groupRepo.GetByNameAsync(newName);
+                if (exists != null)
                     return new ServiceResponseDTO<GroupResponseDTO> { IsSuccess = false, Error = "Group name already exists.", StatusCode = 409 };
 
                 var updated = await _groupRepo.UpdateGroupNameAsync(group, newName);
@@ -73,7 +73,7 @@ namespace MinimalChatApp.BAL.Services
         {
             try
             {
-                var groupEntity = await _groupRepo.GetByIdAndNameAsync(groupId, name);
+                var groupEntity = await _groupRepo.GetByIdAsync(groupId);
                 if (groupEntity == null)
                     return new ServiceResponseDTO<GroupResponseDTO> { IsSuccess = false, Error = "Group not found or already deleted.", StatusCode = 404 };
 
